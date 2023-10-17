@@ -1,0 +1,24 @@
+# genomes 
+
+########################################################################################################
+# Run settings
+########################################################################################################
+
+CORES: 24 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
+MEMLIMIT: 200000000000  # limit in bytes
+MEMLIMIT_GB: 300G       # mem limit for kallisto
+
+########################################################################################################
+# Important directory file paths
+########################################################################################################
+# **Change these paths for where you want temporary (TMPDIR) and output (OUTDIR) files
+#TODO: add OUTDIR to sample sheet
+TMPDIR: ./tmp
+OUTDIR: ./data/align_out
+
+########################################################################################################
+# Executables - file paths
+########################################################################################################
+BWA_EXEC: bwa
+STAR_EXEC: STAR 
+KALLISTO_EXEC: kallisto
