@@ -14,11 +14,19 @@ MEMLIMIT_GB: 300G       # mem limit for kallisto
 # **Change these paths for where you want temporary (TMPDIR) and output (OUTDIR) files
 #TODO: add OUTDIR to sample sheet
 TMPDIR: ./tmp
-OUTDIR: ./data/align_out
+OUTDIR: ./out
 
 ########################################################################################################
 # Executables - file paths
 ########################################################################################################
-BWA_EXEC: bwa
-STAR_EXEC: STAR 
-KALLISTO_EXEC: kallisto
+# BWA_EXEC: bwa
+# BT_EXEC: bowtie
+# BT2_EXEC: bowtie2
+# STAR_EXEC: STAR 
+# KALLISTO_EXEC: kallisto
+EXEC:
+  BWA: bwa
+  BT: bowtie
+  BT2: bowtie2
+  STAR: STAR 
+  KALLISTO: kallisto

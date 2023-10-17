@@ -12,9 +12,9 @@ OUTDIR = config['OUTDIR']
 ########################################################################################################
 # Executables
 ########################################################################################################
-BWA_EXEC = config['BWA_EXEC']
-STAR_EXEC = config['STAR_EXEC']
-KALLISTO_EXEC = config['KALLISTO_EXEC']
+EXEC = config['EXEC']
+# STAR_EXEC = config['STAR_EXEC']
+# KALLISTO_EXEC = config['KALLISTO_EXEC']
 
 
 ########################################################################################################
@@ -23,7 +23,7 @@ rule all:
         expand( #reference output for each species and tool combo
             '{OUTDIR}/{species}/{tool}',
             OUTDIR=config['OUTDIR'],
-            TOOL=TOOL,
+            TOOL=EXEC.keys(),
             SPECIES=SPECIES
         )
 
