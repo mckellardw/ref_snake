@@ -1,34 +1,36 @@
 # Download the reference sequence(s) and annotation(s) for each species
 
 rule download_ref_data:
+    input:
+       SPECIES_LIST = "resources/gget_species.txt"
     output:
-        # REF_METADATA = expand("{REFDIR}/{SPECIES}/STAR/metadata.json", REFDIR=config["REFDIR"], SPECIES=SPECIES),
-        REF = expand("{REFDIR}/{SPECIES}/STAR/Genome", REFDIR=config["REFDIR"], SPECIES=SPECIES) # Reference genomes
+        REF = expand("{OUTDIR}/{SPECIES}/raw/metadata.json", OUTDIR=config["OUTDIR"], SPECIES=SPECIES)
     threads:
-        config["CORES_HI"]
+        config["CORES"]
+    log:
+        f"{OUTDIR}/download.log"
     run:
-        #TODO- import error from gget python module, although the command line tool works? Seems like it is a
-        # from gget import ref
-        # available_species = ref(species="NA", list_species=True)
-        shell("{GGET_EXEC} ref -l > resources/gget_species.txt")
+        # from pandas import read_csv
+        available_species = pd.read_csv(input.SPECIES_LIST, header=None)[0].values.tolist()
+        print(wildcards.keys())
+        S = wildcards.sample
+        if S in available_species:
+            print(f"Downloading genome sequence and annotations for {S} to {REFDIR}/{S}")
+            shell(
+                f"""
+                mkdir -p {OUTDIR}/{S}/raw
+                cd {OUTDIR}/{S}/raw
 
-        from pandas import read_csv
-        available_species = read_csv("resources/gget_species.txt",header=None)[0].values.tolist()
+                {GGET_EXEC} ref \
+                --out {OUTDIR}/{S}/raw/metadata.json \
+                --which gtf,dna \
+                --download \
+                {S}
 
-        for S in SPECIES:
-            if S in available_species:
-                print(f"Downloading genome sequence and annotations for {S} to {REFDIR}/{S}")
-                shell(
-                    f"""
-                    mkdir -p {REFDIR}/{S}
-                    cd {REFDIR}/{S}
-
-                    {GGET_EXEC} ref \
-                    --out {REFDIR}/{S}/metadata.json \
-                    --which gtf,dna \
-                    --download \
-                    {S}
-
-                    gunzip {REFDIR}/{S}/*.gz
-                    """
-                )
+                
+                """
+                # gunzip {OUTDIR}/{S}/raw/*.gz
+            )
+        else:
+            print(f"Species ({S}) not available from `gget`!")
+            #TODO- add code to look for custom ref sequences here

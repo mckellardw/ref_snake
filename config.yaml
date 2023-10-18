@@ -13,8 +13,8 @@ MEMLIMIT_GB: 300G       # mem limit for kallisto
 ########################################################################################################
 # **Change these paths for where you want temporary (TMPDIR) and output (OUTDIR) files
 #TODO: add OUTDIR to sample sheet
-TMPDIR: ./tmp
-OUTDIR: ./out
+TMPDIR: tmp
+OUTDIR: out
 
 ########################################################################################################
 # Executables - file paths
@@ -30,3 +30,7 @@ EXEC:
   BT2: bowtie2
   STAR: STAR 
   KALLISTO: kallisto
+
+SPECIES:
+  mus_musculus
+  homo_sapiens
