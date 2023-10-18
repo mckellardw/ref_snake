@@ -17,6 +17,7 @@ OUTDIR = config['OUTDIR']
 # Executables/aligners
 ########################################################################################################
 EXEC = config['EXEC']
+GGET_EXEC = config['GGET_EXEC']
 
 SPECIES = config['SPECIES'].split()
 

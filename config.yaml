@@ -24,6 +24,7 @@ OUTDIR: out
 # BT2_EXEC: bowtie2
 # STAR_EXEC: STAR 
 # KALLISTO_EXEC: kallisto
+GGET_EXEC: gget
 EXEC:
   BWA: bwa
   BT: bowtie
