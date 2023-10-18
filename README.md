@@ -1,4 +1,4 @@
-# Snakemake workflow to build reference genomes for common alignment pipelines in an organized manner
+# Snakemake workflow to build and organize reference genomes for common alignment tools
 
 # TODO
 ## Tools to add/support:
@@ -20,6 +20,12 @@ conda activate ref_snake
 pip install gget snakemake
 ```
 
+2) Modify `config.yaml` to include what species you want to build refs for
+
+3) Run pipeline:
+```
+snakemake -j 4
+```
 
 # Downloads
 ## Download ensembl references w/ [`gget`](https://github.com/pachterlab/gget)
