@@ -8,6 +8,7 @@
 conda create --name ref_snake -c bioconda star kallisto bowtie bowtie2 minimap2
 conda activate ref_snake
 pip install gget snakemake
+conda install -c conda-forge pigz
 ```
 
 2) Modify `config.yaml` to include what species you want to build refs for
