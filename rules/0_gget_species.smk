@@ -7,7 +7,7 @@ rule gget_species:
         config["CORES"]
     run:
         shell(
-            """
-            gget ref --list_species > {output.SPECIES_LIST}
+            f"""
+            {GGET_EXEC} ref --list_species > {output.SPECIES_LIST}
             """
         )
