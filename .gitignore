@@ -1,3 +1,7 @@
 
 .snakemake/*
 out/*
+
+**.fa.gz
+**.fasta.fz
+**.gtf.gz

@@ -4,9 +4,9 @@
 # Run settings
 ########################################################################################################
 
-CORES: 24 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
+CORES: 2 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
 MEMLIMIT: 200000000000  # limit in bytes
-MEMLIMIT_GB: 300G       # mem limit for kallisto
+MEMLIMIT_GB: 64G       # mem limit for kallisto
 
 ########################################################################################################
 # Important directory file paths

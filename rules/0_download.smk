@@ -39,7 +39,7 @@ rule get_ref_files:
     output:
         DNA   = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
         cDNA  = "{OUTDIR}/{SPECIES}/raw/cdna.fa.gz",
-        GTF   = "{OUTDIR}/{SPECIES}/raw/annotations.gtf",
+        GTF   = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz",
         CDS   = "{OUTDIR}/{SPECIES}/raw/cds.fa.gz",
         ncRNA = "{OUTDIR}/{SPECIES}/raw/ncrna.fa.gz",
         PEP   = "{OUTDIR}/{SPECIES}/raw/pep.fa.gz"

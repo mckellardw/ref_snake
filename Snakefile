@@ -30,9 +30,23 @@ rule all:
         #     TOOL=EXEC.keys(),
         #     SPECIES=SPECIES
         # ),
-        expand(
-            "{OUTDIR}/{SPECIES}/raw/metadata.json", 
-            OUTDIR=config["OUTDIR"], 
+        expand( # STAR reference
+            "{OUTDIR}/{SPECIES}/STAR/Genome", 
+            OUTDIR=config["OUTDIR"],
+            SPECIES=SPECIES
+        ),
+        expand( # Raw data and metadata for each species
+            "{OUTDIR}/{SPECIES}/raw/{FILES}", 
+            OUTDIR=config["OUTDIR"],
+            FILES = [
+                'metadata.json',
+                'genome.fa.gz',
+                'cdna.fa.gz',
+                'annotations.gtf.gz',
+                'cds.fa.gz',
+                'ncrna.fa.gz',
+                'pep.fa.gz'
+            ],
             SPECIES=SPECIES
         ),
         expand( # list of species supported by gget
@@ -43,7 +57,7 @@ rule all:
 include: "rules/0_gget_species.smk"
 include: "rules/0_download.smk"
 # include: "rules/0_install_execs.smk" #TODO
-# include: "1_bowtie.smk"
-# include: "1_kallisto.smk"
-# include: "1_star.smk"
+# include: "rules/1_bowtie.smk"
+# include: "rules/1_kallisto.smk"
+include: "rules/1_star.smk"
 

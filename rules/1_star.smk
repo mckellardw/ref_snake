@@ -1,12 +1,10 @@
 # Build reference for STAR/STARsolo
-
 rule star:
     input:
-        FASTAS = expand(),
-        GTFS =  expand()
+        DNA   = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
+        GTF   = "{OUTDIR}/{SPECIES}/raw/annotations.gtf"
     output:
-        # REF_METADATA = expand("{REFDIR}/{SPECIES}/STAR/metadata.json", REFDIR=config["REFDIR"], SPECIES=SPECIES),
-        REF = expand("{REFDIR}/{SPECIES}/STAR/Genome", REFDIR=config["REFDIR"], SPECIES=SPECIES) # Reference genomes
+        REF = "{OUTDIR}/{SPECIES}/STAR/Genome" 
     threads:
         config["CORES"]
     run:
@@ -15,12 +13,9 @@ rule star:
             {EXEC['star']} \
             --runThreadN {threads} \
             --runMode genomeGenerate \
-            --genomeDir {REFDIR}/{S}/STAR \
-            --genomeFastaFiles $(ls -t {REFDIR}/{S}/*.fa) \
-            --sjdbGTFfile $(ls -t {REFDIR}/{S}/*.gtf) \
+            --genomeDir {OUTDIR}/{SPECIES}/STAR \
+            --genomeFastaFiles {input.DNA} \
+            --sjdbGTFfile {input.GTF} \
             --sjdbGTFfeatureExon exon
-
-            pigz -p {threads} $(ls -t {REFDIR}/{S}/*.fa)
-            pigz -p {threads} $(ls -t {REFDIR}/{S}/*.gtf)
             """
         )
