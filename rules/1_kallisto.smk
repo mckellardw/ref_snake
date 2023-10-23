@@ -1,51 +1,55 @@
-#TODO - modify to build refs just with kallisto, to avoid the heavy kallisto-bustools dependency
+#TODO - modify to build refs just with kallisto, to avoid the kallisto-bustools dependency
 
 # Build reference for kallisto
 rule kb:
     input:
-        DNA   = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
-        GTF   = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"
+        DNA = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
+        GTF = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"
     output:
-        REF = directory("{OUTDIR}/{SPECIES}/kb"),
-        INDEX         = "{OUTDIR}/{SPECIES}/kb/transcriptome.idx",
-        T2G           = "{OUTDIR}/{SPECIES}/kb/t2g.txt",
-        cDNA_FASTA    = "{OUTDIR}/{SPECIES}/kb/cdna.fa"
+        REFDIR = directory("{OUTDIR}/{SPECIES}/kb"),
+        INDEX = "{OUTDIR}/{SPECIES}/kb/transcriptome.idx",
+        T2G = "{OUTDIR}/{SPECIES}/kb/t2g.txt",
+        cDNA_FASTA = "{OUTDIR}/{SPECIES}/kb/cdna.fa"
     threads:
         config["CORES"]
     run:
         shell(
             f"""
+            mkdir -p {output.REFDIR}
+
             {EXEC['KB']} ref \
+            --kallisto {EXEC["KALLISTO"]} \
+            --tmp {OUTDIR}/{wildcards.SPECIES}/kb/tmp \
             -i {output.INDEX} \
             -g {output.T2G} \
             -f1 {output.cDNA_FASTA} \
             {input.DNA} {input.GTF}
             """
         )
-            # pigz --decompress --force --keep -p{threads} {input.DNA} {input.GTF} 
-            # rm {input.DNA.replace(".gz","")} {input.GTF.replace(".gz","")} 
 
-
-
-
-# Buiild reference for RNA velocity inference w/ kallisto
+# Build reference for RNA velocity inference w/ kallisto
 rule kb_velocity:
     input:
-        DNA   = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
-        GTF   = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"
+        DNA = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
+        GTF = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"
     output:
-        REF = directory("{OUTDIR}/{SPECIES}/kb_velo"),
-        INDEX         = "{OUTDIR}/{SPECIES}/kb_velo/transcriptome.idx",
-        cDNA_FASTA    = "{OUTDIR}/{SPECIES}/kb_velo/cdna.fa",
-        INTRON_FASTA  = "{OUTDIR}/{SPECIES}/kb_velo/intron.fa",
-        cDNA_T2C      = "{OUTDIR}/{SPECIES}/kb_velo/cdna.t2c",
-        INTRON_T2C    = "{OUTDIR}/{SPECIES}/kb_velo/t2g.txt",
+        REFDIR = directory("{OUTDIR}/{SPECIES}/kb_velo"),
+        INDEX = "{OUTDIR}/{SPECIES}/kb_velo/transcriptome.idx",
+        T2G = "{OUTDIR}/{SPECIES}/kb_velo/t2g.txt",
+        cDNA_FASTA = "{OUTDIR}/{SPECIES}/kb_velo/cdna.fa",
+        INTRON_FASTA = "{OUTDIR}/{SPECIES}/kb_velo/intron.fa",
+        cDNA_T2C = "{OUTDIR}/{SPECIES}/kb_velo/cdna.t2c",
+        INTRON_T2C = "{OUTDIR}/{SPECIES}/kb_velo/intron.t2c",
     threads:
         config["CORES"]
     run:
         shell(
             f"""
-            {EXEC['KB']} ref \
+            mkdir -p {output.REFDIR}
+
+            {EXEC["KB"]} ref \
+            --kallisto {EXEC["KALLISTO"]} \
+            --tmp {OUTDIR}/{wildcards.SPECIES}/kb_velo/tmp \
             -i {output.INDEX} \
             -g {output.T2G} \
             --workflow lamanno \

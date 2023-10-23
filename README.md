@@ -86,5 +86,5 @@ wget -e robots=off --recursive --no-parent  https://ftp.ebi.ac.uk/pub/databases/
   - minimap2
   - salmon
 - Custom references
-- GENCODE annotations! (ideally via gget if they ever add it...)
+- GENCODE annotations! (ideally via gget if they add it...)
 - ref genome stats?

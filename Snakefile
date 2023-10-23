@@ -30,6 +30,12 @@ rule all:
         #     TOOL=EXEC.keys(),
         #     SPECIES=SPECIES
         # ),
+        expand( # kallisto-bustools reference(s)
+            "{OUTDIR}/{SPECIES}/{WORKFLOW}/transcriptome.idx", 
+            OUTDIR=config["OUTDIR"],
+            WORKFLOW=["kb", "kb_velo"],
+            SPECIES=SPECIES
+        ),
         expand( # STAR reference
             "{OUTDIR}/{SPECIES}/STAR/Genome", 
             OUTDIR=config["OUTDIR"],
@@ -54,10 +60,13 @@ rule all:
         )
 
 # import rules
+## Pre-run set up
 include: "rules/0_gget_species.smk"
-include: "rules/0_download.smk"
+include: "rules/0_download_raw.smk"
 # include: "rules/0_install_execs.smk" #TODO
-# include: "rules/1_bowtie.smk"
-# include: "rules/1_kallisto.smk"
+
+## Rules for each aligner
 include: "rules/1_star.smk"
+include: "rules/1_kallisto.smk"
+# include: "rules/1_bowtie.smk"
 

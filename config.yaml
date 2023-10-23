@@ -3,7 +3,7 @@
 ########################################################################################################
 # Run settings
 ########################################################################################################
-CORES: 8 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
+CORES: 32 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
 MEMLIMIT: 200000000000  # limit in bytes
 MEMLIMIT_GB: 64G       # mem limit for kallisto
 
@@ -33,3 +33,8 @@ EXEC:
 SPECIES:
   mus_musculus
   homo_sapiens
+
+CUSTOM: "path/to/sample_sheet.csv"
+# - space-delimited columns for .fa inputs & .gtf inputs
+# - Add separate outputs in `rule all` for custom/gget refs
+# - 

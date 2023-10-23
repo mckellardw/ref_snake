@@ -4,7 +4,8 @@ rule star:
         DNA   = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
         GTF   = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"
     output:
-        REF = "{OUTDIR}/{SPECIES}/STAR/Genome" 
+        REF = "{OUTDIR}/{SPECIES}/STAR/Genome",
+        REFDIR = directory("{OUTDIR}/{SPECIES}/STAR"),
     threads:
         config["CORES"]
     run:
@@ -12,11 +13,14 @@ rule star:
             f"""
             pigz --decompress --force --keep -p{threads} {input.DNA} {input.GTF} 
 
+            mkdir -p {output.REFDIR}
+
             {EXEC['STAR']} \
+            --outTmpDir {output.REFDIR}/_STARtmp \
             --runThreadN {threads} \
             --readFilesCommand zcat \
             --runMode genomeGenerate \
-            --genomeDir {OUTDIR}/{SPECIES}/STAR \
+            --genomeDir {OUTDIR}/{wildcards.SPECIES}/STAR \
             --genomeFastaFiles {input.DNA.replace(".gz","")} \
             --sjdbGTFfile {input.GTF.replace(".gz","")} \
             --sjdbGTFfeatureExon exon
@@ -24,4 +28,3 @@ rule star:
             rm {input.DNA.replace(".gz","")} {input.GTF.replace(".gz","")} 
             """
         )
-            # pigz --force -p{threads} {input.DNA.replace(".gz","")} {input.GTF.replace(".gz","")} 
