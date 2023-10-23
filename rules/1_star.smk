@@ -10,7 +10,7 @@ rule star:
     run:
         shell(
             f"""
-            pigz -d --force -p{threads} {input.DNA} {input.GTF} 
+            pigz --decompress --force --keep -p{threads} {input.DNA} {input.GTF} 
 
             {EXEC['STAR']} \
             --runThreadN {threads} \
@@ -21,6 +21,7 @@ rule star:
             --sjdbGTFfile {input.GTF.replace(".gz","")} \
             --sjdbGTFfeatureExon exon
             
-            pigz --force -p{threads} {input.DNA.replace(".gz","")} {input.GTF.replace(".gz","")} 
+            rm {input.DNA.replace(".gz","")} {input.GTF.replace(".gz","")} 
             """
         )
+            # pigz --force -p{threads} {input.DNA.replace(".gz","")} {input.GTF.replace(".gz","")} 

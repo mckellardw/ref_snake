@@ -3,8 +3,7 @@
 ########################################################################################################
 # Run settings
 ########################################################################################################
-
-CORES: 2 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
+CORES: 8 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
 MEMLIMIT: 200000000000  # limit in bytes
 MEMLIMIT_GB: 64G       # mem limit for kallisto
 
@@ -19,19 +18,18 @@ OUTDIR: out
 ########################################################################################################
 # Executables - file paths
 ########################################################################################################
-# BWA_EXEC: bwa
-# BT_EXEC: bowtie
-# BT2_EXEC: bowtie2
-# STAR_EXEC: STAR 
-# KALLISTO_EXEC: kallisto
 GGET_EXEC: gget
+
+# Dict of paths to all of the executables for the aligners
 EXEC:
   BWA: bwa
   BT: bowtie
   BT2: bowtie2
   STAR: STAR 
   KALLISTO: kallisto
+  KB: kb
 
+# Dict of species to be included. See `resources/gget_species.txt` for options
 SPECIES:
   mus_musculus
   homo_sapiens
