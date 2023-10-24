@@ -15,8 +15,16 @@ conda install -c conda-forge pigz
 
 3) Run pipeline:
 ```
-snakemake -j 4
+snakemake -j 16
 ```
+
+Run pipeline w/ slurm:
+```
+snakemake --cluster-config slurm_config.yml \
+--cluster "sbatch --mail-type {cluster.mail-type} --mail-user {cluster.mail-user} -p {cluster.partition} -t {cluster.time} -N {cluster.nodes} --mem {cluster.mem} -D {cluster.chdir}" \
+-j 32
+```
+-n {cluster.ntasks}
 
 ## Misc.
 - Download GENCODE references w/ `wget`

@@ -1,6 +1,7 @@
 
 .snakemake/*
 out/*
+slurm**
 
 **.fa.gz
 **.fasta.fz

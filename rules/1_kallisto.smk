@@ -12,18 +12,22 @@ rule kb:
         cDNA_FASTA = "{OUTDIR}/{SPECIES}/kb/cdna.fa"
     threads:
         config["CORES"]
+    # resources:
+    #     mem_mb=config["MEMLIMIT"]/1000000
+    log:
+        "{OUTDIR}/{SPECIES}/kb/kb_ref.log"
     run:
         shell(
             f"""
             mkdir -p {output.REFDIR}
 
-            {EXEC['KB']} ref \
+            {EXEC["KB"]} ref \
             --kallisto {EXEC["KALLISTO"]} \
             --tmp {OUTDIR}/{wildcards.SPECIES}/kb/tmp \
             -i {output.INDEX} \
             -g {output.T2G} \
             -f1 {output.cDNA_FASTA} \
-            {input.DNA} {input.GTF}
+            {input.DNA} {input.GTF} 2> {log}
             """
         )
 
@@ -42,6 +46,8 @@ rule kb_velocity:
         INTRON_T2C = "{OUTDIR}/{SPECIES}/kb_velo/intron.t2c",
     threads:
         config["CORES"]
+    log:
+        "{OUTDIR}/{SPECIES}/kb_velo/kb_ref.log"
     run:
         shell(
             f"""
@@ -57,6 +63,6 @@ rule kb_velocity:
             -f2 {output.INTRON_FASTA} \
             -c1 ${output.cDNA_T2C} \
             -c2 ${output.INTRON_T2C} \
-            {input.DNA} {input.GTF}
+            {input.DNA} {input.GTF} 2> {log}
             """
         )

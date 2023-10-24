@@ -3,8 +3,8 @@
 ########################################################################################################
 # Run settings
 ########################################################################################################
-CORES: 32 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
-MEMLIMIT: 200000000000  # limit in bytes
+CORES: 16 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
+MEMLIMIT: 120000000000  # limit in bytes
 MEMLIMIT_GB: 64G       # mem limit for kallisto
 
 ########################################################################################################
@@ -25,7 +25,7 @@ EXEC:
   BWA: bwa
   BT: bowtie
   BT2: bowtie2
-  STAR: STAR 
+  STAR: /nfs/home/dmckellar/mambaforge/envs/ref_snake/bin/STAR 
   KALLISTO: kallisto
   KB: kb
 
