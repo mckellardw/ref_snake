@@ -54,6 +54,7 @@ rule kb_velocity:
             mkdir -p {output.REFDIR}
 
             {EXEC["KB"]} ref \
+            --verbose \
             --kallisto {EXEC["KALLISTO"]} \
             --tmp {OUTDIR}/{wildcards.SPECIES}/kb_velo/tmp \
             -i {output.INDEX} \
@@ -61,8 +62,8 @@ rule kb_velocity:
             --workflow lamanno \
             -f1 {output.cDNA_FASTA} \
             -f2 {output.INTRON_FASTA} \
-            -c1 ${output.cDNA_T2C} \
-            -c2 ${output.INTRON_T2C} \
+            -c1 {output.cDNA_T2C} \
+            -c2 {output.INTRON_T2C} \
             {input.DNA} {input.GTF} 2> {log}
             """
         )
