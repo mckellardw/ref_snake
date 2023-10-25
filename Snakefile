@@ -41,6 +41,11 @@ rule all:
             OUTDIR=config["OUTDIR"],
             SPECIES=SPECIES
         ),
+        expand( # minimap2 index
+            "{OUTDIR}/{SPECIES}/minimap2/target.mmi", 
+            OUTDIR=config["OUTDIR"],
+            SPECIES=SPECIES
+        ),
         expand( # Raw data and metadata for each species
             "{OUTDIR}/{SPECIES}/raw/{FILES}", 
             OUTDIR=config["OUTDIR"],
@@ -69,4 +74,5 @@ include: "rules/0_download_raw.smk"
 include: "rules/1_star.smk"
 include: "rules/1_kallisto.smk"
 # include: "rules/1_bowtie.smk"
+include: "rules/1_minimap2.smk"
 

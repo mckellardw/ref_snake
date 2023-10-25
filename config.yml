@@ -28,6 +28,7 @@ EXEC:
   STAR: /nfs/home/dmckellar/mambaforge/envs/ref_snake/bin/STAR 
   KALLISTO: kallisto
   KB: kb
+  MINIMAP2: minimap2
 
 # Dict of species to be included. See `resources/gget_species.txt` for options
 SPECIES:
