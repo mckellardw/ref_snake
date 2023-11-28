@@ -1,5 +1,6 @@
 # Build reference for bowtie
-rule star:
+## Manual: https://bowtie-bio.sourceforge.net/manual.shtml
+rule bowtie:
     input:
         DNA   = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
         GTF   = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"

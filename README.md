@@ -12,7 +12,9 @@ conda install -c conda-forge pigz
 ```
 
 2) Modify `config.yaml` to include what species you want to build refs for
-
+```SPECIES:
+  mus_musculus
+  homo_sapiens```
 3) Run pipeline:
 ```
 snakemake -j 16
@@ -91,7 +93,7 @@ wget -e robots=off --recursive --no-parent  https://ftp.ebi.ac.uk/pub/databases/
 ## TODO
 - Tools to add/support:
   - bwa
-  - minimap2
+  - bowtie/2
   - salmon
 - Custom references
 - GENCODE annotations! (ideally via gget if they add it...)
