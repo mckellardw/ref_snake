@@ -12,9 +12,11 @@ conda install -c conda-forge pigz
 ```
 
 2) Modify `config.yaml` to include what species you want to build refs for
-```SPECIES:
+```
+SPECIES:
   mus_musculus
-  homo_sapiens```
+  homo_sapiens
+```
 3) Run pipeline:
 ```
 snakemake -j 16

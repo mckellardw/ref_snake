@@ -22,13 +22,14 @@ GGET_EXEC: gget
 
 # Dict of paths to all of the executables for the aligners
 EXEC:
-  BWA: bwa
   BT: bowtie
   BT2: bowtie2
-  STAR: /nfs/home/dmckellar/mambaforge/envs/ref_snake/bin/STAR 
+  BWA: bwa
   KALLISTO: kallisto
   KB: kb
   MINIMAP2: minimap2
+  SAMTOOLS: samtools
+  STAR: /nfs/home/dmckellar/mambaforge/envs/ref_snake/bin/STAR 
 
 # Dict of species to be included. See `resources/gget_species.txt` for options
 SPECIES:

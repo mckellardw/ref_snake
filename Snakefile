@@ -30,6 +30,11 @@ rule all:
         #     TOOL=EXEC.keys(),
         #     SPECIES=SPECIES
         # ),
+        expand( # pseudo-cellranger for raw genome files
+            "{OUTDIR}/{SPECIES}/pseudo_cellranger/fasta/genome.fa", 
+            OUTDIR=config["OUTDIR"],
+            SPECIES=SPECIES
+        ),
         expand( # kallisto-bustools reference(s)
             "{OUTDIR}/{SPECIES}/{WORKFLOW}/transcriptome.idx", 
             OUTDIR=config["OUTDIR"],
@@ -70,6 +75,7 @@ include: "rules/0_gget_species.smk"
 include: "rules/0_download_raw.smk"
 
 ## Rules for each aligner
+include: "rules/1_pseudo_cellranger.smk"
 include: "rules/1_star.smk"
 include: "rules/1_kallisto.smk"
 # include: "rules/1_bowtie.smk"
