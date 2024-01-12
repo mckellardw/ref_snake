@@ -1,7 +1,7 @@
 
 .snakemake/*
 out/*
-slurm**
+slurm_log/**
 
 **.fa.gz
 **.fasta.fz
