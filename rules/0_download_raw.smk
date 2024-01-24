@@ -17,10 +17,10 @@ rule get_ref_metadata:
                 f"""
                 mkdir -p {OUTDIR}/{S}/raw
 
-                {GGET_EXEC} ref \
-                --which all \
-                --out {OUTDIR}/{S}/raw/metadata.json \
-                {S}
+                {EXEC['GGET']} ref \
+                    --which all \
+                    --out {OUTDIR}/{S}/raw/metadata.json \
+                    {S}
                 """
                 # --download \
                 # gunzip {OUTDIR}/{S}/raw/*.gz

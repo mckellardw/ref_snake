@@ -1,6 +1,5 @@
 
 .snakemake/*
-out/*
 slurm_log/**
 
 **.fa.gz
