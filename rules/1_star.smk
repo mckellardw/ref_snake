@@ -16,16 +16,15 @@ rule star:
             mkdir -p {output.REFDIR}
 
             {EXEC['STAR']} \
-            --runMode genomeGenerate \
-            --outTmpDir {output.REFDIR}/_STARtmp \
-           --limitBAMsortRAM {config["MEMLIMIT"]} \
-            --runThreadN {threads} \
-            --readFilesCommand zcat \
-            --genomeDir {OUTDIR}/{wildcards.SPECIES}/STAR \
-            --genomeFastaFiles {input.DNA.replace(".gz","")} \
-            --sjdbGTFfile {input.GTF.replace(".gz","")} \
-            --sjdbGTFfeatureExon exon
-            
+                --runMode genomeGenerate \
+                --outTmpDir {output.REFDIR}/_STARtmp \
+                --limitBAMsortRAM {config["MEMLIMIT"]} \
+                --runThreadN {threads} \
+                --readFilesCommand zcat \
+                --genomeDir {OUTDIR}/{wildcards.SPECIES}/STAR \
+                --genomeFastaFiles {input.DNA.replace(".gz","")} \
+                --sjdbGTFfile {input.GTF.replace(".gz","")} \
+                --sjdbGTFfeatureExon exon            
             """
         )
             # rm {input.DNA.replace(".gz","")} {input.GTF.replace(".gz","")} 

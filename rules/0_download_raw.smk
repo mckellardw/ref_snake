@@ -4,6 +4,8 @@ rule get_ref_metadata:
         SPECIES_LIST = "resources/gget_species.txt"
     output:
         METADATA = "{OUTDIR}/{SPECIES}/raw/metadata.json"
+    log:
+        "{OUTDIR}/{SPECIES}/logs/metadata.log"
     threads:
         1
     run:
@@ -20,7 +22,8 @@ rule get_ref_metadata:
                 {EXEC['GGET']} ref \
                     --which all \
                     --out {OUTDIR}/{S}/raw/metadata.json \
-                    {S}
+                    {S} \
+                    2> {log}
                 """
                 # --download \
                 # gunzip {OUTDIR}/{S}/raw/*.gz
