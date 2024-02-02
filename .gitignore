@@ -1,7 +1,8 @@
 
 .snakemake/*
-slurm_log/**
+.slurm_log/**
 
 **.fa.gz
 **.fasta.fz
 **.gtf.gz
+.kallisto.*

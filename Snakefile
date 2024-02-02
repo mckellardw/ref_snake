@@ -38,7 +38,7 @@ rule all:
         expand( # kallisto-bustools reference(s)
             "{OUTDIR}/{SPECIES}/{WORKFLOW}/transcriptome.idx", 
             OUTDIR=config["OUTDIR"],
-            WORKFLOW=["kb", "kb_velo"],
+            WORKFLOW=["kb", "kb_velo", "kb_nuc"],
             SPECIES=SPECIES
         ),
         expand( # STAR reference

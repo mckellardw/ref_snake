@@ -8,8 +8,7 @@ __default__:
     nodes: 1
     ntasks-per-node: 16 #Request n cores be allocated per node.
     mem: 220G
-    output: slurm_log/stdout_%j.log
+    output: .slurm_log/%j.log
     chdir: /gpfs/commons/groups/innovation/dwm/ref_snake
-    error: a_name_for_my_job-%j.err
 
 

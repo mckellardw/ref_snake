@@ -25,9 +25,7 @@ snakemake -j 16
 
 Run pipeline w/ slurm:
 ```
-snakemake --cluster-config slurm_config.yml \
---cluster "sbatch --mail-type {cluster.mail-type} --mail-user {cluster.mail-user} -p {cluster.partition} -t {cluster.time} -N {cluster.nodes} --mem {cluster.mem} -D {cluster.chdir}" \
--j 32
+snakemake --cluster-config slurm_config.yml --cluster "sbatch -p {cluster.partition} -t {cluster.time} -N {cluster.nodes} --mem {cluster.mem} -o {cluster.output}" -j 32 --cluster-cancel scancel --latency-wait 30
 ```
 
 
