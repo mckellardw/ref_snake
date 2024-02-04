@@ -51,10 +51,16 @@ rule all:
             OUTDIR=config["OUTDIR"],
             SPECIES=SPECIES
         ),
-        expand( # Raw data and metadata for each species
-            "{OUTDIR}/{SPECIES}/raw/{FILES}", 
+        expand( # bwa-mem2 index
+            "{OUTDIR}/{SPECIES}/bwa_mem2/genome.fa{FILE}",
             OUTDIR=config["OUTDIR"],
-            FILES = [
+            FILE = ['.amb', '.ann', '.bwt.2bit.64', '.pac', '.0123'],
+            SPECIES=SPECIES
+        ),
+        expand( # Raw data and metadata for each species
+            "{OUTDIR}/{SPECIES}/raw/{FILE}", 
+            OUTDIR=config["OUTDIR"],
+            FILE = [
                 'metadata.json',
                 'genome.fa.gz',
                 'cdna.fa.gz',
@@ -65,9 +71,9 @@ rule all:
             ],
             SPECIES=SPECIES
         ),
-        expand( # list of species supported by gget
+        [ # list of species supported by gget
             'resources/gget_species.txt'
-        )
+        ]
 
 # import rules
 ## Pre-run set up
@@ -79,5 +85,8 @@ include: "rules/1_pseudo_cellranger.smk"
 include: "rules/1_star.smk"
 include: "rules/1_kallisto.smk"
 # include: "rules/1_bowtie.smk"
+include: "rules/1_bwa.smk"
 include: "rules/1_minimap2.smk"
 
+# Ref genome comparisons
+##TODO

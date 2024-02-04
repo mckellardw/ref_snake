@@ -25,6 +25,7 @@ EXEC:
   BT: bowtie
   BT2: bowtie2
   BWA: bwa
+  BWA_MEM2: bwa-mem2
   KALLISTO: kallisto
   KB: kb
   MINIMAP2: minimap2
@@ -36,6 +37,7 @@ SPECIES:
   mus_musculus
   homo_sapiens
 
+#TODO
 CUSTOM: "path/to/sample_sheet.csv"
 # - space-delimited columns for .fa inputs & .gtf inputs
 # - Add separate outputs in `rule all` for custom/gget refs
