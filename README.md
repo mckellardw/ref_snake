@@ -25,7 +25,7 @@ snakemake -j 16
 
 Run pipeline w/ slurm:
 ```
-snakemake --cluster-config slurm_config.yml --cluster "sbatch -p {cluster.partition} -t {cluster.time} -N {cluster.nodes} --mem {cluster.mem} -o {cluster.output}" -j 32 --cluster-cancel scancel --latency-wait 30
+snakemake --cluster-config slurm_config.yml --cluster "sbatch -p {cluster.partition} -t {cluster.time} -N {cluster.nodes} --mem {cluster.mem} -o {cluster.output} --cpus-per-task={cluster.threads}" -j 32 --cluster-cancel scancel --latency-wait 30
 ```
 
 

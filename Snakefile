@@ -14,10 +14,9 @@ TMPDIR = config['TMPDIR']
 OUTDIR = config['OUTDIR']
 
 ########################################################################################################
-# Executables/aligners
+# Executables & params
 ########################################################################################################
 EXEC = config['EXEC']
-GGET_EXEC = config['GGET_EXEC']
 
 SPECIES = config['SPECIES'].split()
 
