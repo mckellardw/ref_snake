@@ -1,13 +1,13 @@
 # Prepare directory structured similarly to cellranger- used by wf-single-cell
 rule pseudo_cellranger:
     input:
-        DNA   = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
-        GTF   = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"
+        DNA   = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz",
+        GTF   = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/annotations.gtf.gz"
     output:
-        REFDIR  = directory("{OUTDIR}/{SPECIES}/pseudo_cellranger"),
-        DNA     = "{OUTDIR}/{SPECIES}/pseudo_cellranger/fasta/genome.fa",
-        DNA_IDX = "{OUTDIR}/{SPECIES}/pseudo_cellranger/fasta/genome.fa.fai",
-        GTF     = "{OUTDIR}/{SPECIES}/pseudo_cellranger/genes/genes.gtf"
+        REFDIR  = directory("{OUTDIR}/{SPECIES}/{BIOTYPE}/pseudo_cellranger"),
+        DNA     = "{OUTDIR}/{SPECIES}/{BIOTYPE}/pseudo_cellranger/fasta/genome.fa",
+        DNA_IDX = "{OUTDIR}/{SPECIES}/{BIOTYPE}/pseudo_cellranger/fasta/genome.fa.fai",
+        GTF     = "{OUTDIR}/{SPECIES}/{BIOTYPE}/pseudo_cellranger/genes/genes.gtf"
     threads:
         1
     run:

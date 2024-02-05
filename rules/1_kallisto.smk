@@ -2,19 +2,19 @@
 ## https://www.kallistobus.tools/kb_usage/kb_ref/
 rule kb:
     input:
-        DNA = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
-        GTF = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"
+        DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz",
+        GTF = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/annotations.gtf.gz"
     output:
-        REFDIR = directory("{OUTDIR}/{SPECIES}/kb"),
-        INDEX = "{OUTDIR}/{SPECIES}/kb/transcriptome.idx",
-        T2G = "{OUTDIR}/{SPECIES}/kb/t2g.txt",
-        cDNA_FASTA = "{OUTDIR}/{SPECIES}/kb/cdna.fa"
+        REFDIR = directory("{OUTDIR}/{SPECIES}/{BIOTYPE}/kb"),
+        INDEX = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb/transcriptome.idx",
+        T2G = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb/t2g.txt",
+        cDNA_FASTA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb/cdna.fa"
     threads:
         config["CORES"]
     # resources:
     #     mem_mb=config["MEMLIMIT"]/1000000
     log:
-        log = "{OUTDIR}/{SPECIES}/kb/kb_ref.log"
+        log = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb/kb_ref.log"
     run:
         shell(
             f"""
@@ -34,20 +34,20 @@ rule kb:
 # Build reference for RNA velocity inference w/ kallisto
 rule kb_velocity:
     input:
-        DNA = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
-        GTF = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"
+        DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz",
+        GTF = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/annotations.gtf.gz"
     output:
-        REFDIR = directory("{OUTDIR}/{SPECIES}/kb_velo"),
-        INDEX = "{OUTDIR}/{SPECIES}/kb_velo/transcriptome.idx",
-        T2G = "{OUTDIR}/{SPECIES}/kb_velo/t2g.txt",
-        cDNA_FASTA = "{OUTDIR}/{SPECIES}/kb_velo/cdna.fa",
-        INTRON_FASTA = "{OUTDIR}/{SPECIES}/kb_velo/intron.fa",
-        cDNA_T2C = "{OUTDIR}/{SPECIES}/kb_velo/cdna.t2c",
-        INTRON_T2C = "{OUTDIR}/{SPECIES}/kb_velo/intron.t2c",
+        REFDIR = directory("{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_velo"),
+        INDEX = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_velo/transcriptome.idx",
+        T2G = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_velo/t2g.txt",
+        cDNA_FASTA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_velo/cdna.fa",
+        INTRON_FASTA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_velo/intron.fa",
+        cDNA_T2C = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_velo/cdna.t2c",
+        INTRON_T2C = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_velo/intron.t2c",
     threads:
         config["CORES"]
     log:
-        log = "{OUTDIR}/{SPECIES}/kb_velo/kb_ref.log"
+        log = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_velo/kb_ref.log"
     run:
         shell(
             f"""
@@ -73,20 +73,20 @@ rule kb_velocity:
 # Build reference for RNA velocity inference w/ kallisto
 rule kb_nucleus:
     input:
-        DNA = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
-        GTF = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"
+        DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz",
+        GTF = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/annotations.gtf.gz"
     output:
-        REFDIR = directory("{OUTDIR}/{SPECIES}/kb_nuc"),
-        INDEX = "{OUTDIR}/{SPECIES}/kb_nuc/transcriptome.idx",
-        T2G = "{OUTDIR}/{SPECIES}/kb_nuc/t2g.txt",
-        cDNA_FASTA = "{OUTDIR}/{SPECIES}/kb_nuc/cdna.fa",
-        INTRON_FASTA = "{OUTDIR}/{SPECIES}/kb_nuc/intron.fa",
-        cDNA_T2C = "{OUTDIR}/{SPECIES}/kb_nuc/cdna.t2c",
-        INTRON_T2C = "{OUTDIR}/{SPECIES}/kb_nuc/intron.t2c",
+        REFDIR = directory("{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_nuc"),
+        INDEX = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_nuc/transcriptome.idx",
+        T2G = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_nuc/t2g.txt",
+        cDNA_FASTA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_nuc/cdna.fa",
+        INTRON_FASTA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_nuc/intron.fa",
+        cDNA_T2C = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_nuc/cdna.t2c",
+        INTRON_T2C = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_nuc/intron.t2c",
     threads:
         config["CORES"]
     log:
-        log = "{OUTDIR}/{SPECIES}/kb_nuc/kb_ref.log"
+        log = "{OUTDIR}/{SPECIES}/{BIOTYPE}/kb_nuc/kb_ref.log"
     run:
         shell(
             f"""

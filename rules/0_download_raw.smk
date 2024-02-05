@@ -3,9 +3,9 @@ rule get_ref_metadata:
     input:
         SPECIES_LIST = "resources/gget_species.txt"
     output:
-        METADATA = "{OUTDIR}/{SPECIES}/raw/metadata.json"
+        METADATA = "{OUTDIR}/{SPECIES}/genome/raw/metadata.json"
     log:
-        "{OUTDIR}/{SPECIES}/logs/metadata.log"
+        log = "{OUTDIR}/{SPECIES}/logs/metadata.log"
     threads:
         1
     run:
@@ -23,7 +23,7 @@ rule get_ref_metadata:
                     --which all \
                     --out {OUTDIR}/{S}/raw/metadata.json \
                     {S} \
-                    2> {log}
+                    2> {log.log}
                 """
                 # --download \
                 # gunzip {OUTDIR}/{S}/raw/*.gz
@@ -38,14 +38,14 @@ rule get_ref_metadata:
 rule get_ref_files:
     input:
         SPECIES_LIST = "resources/gget_species.txt",
-        METADATA = "{OUTDIR}/{SPECIES}/raw/metadata.json"
+        METADATA = "{OUTDIR}/{SPECIES}/genome/raw/metadata.json"
     output:
-        DNA   = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
-        cDNA  = "{OUTDIR}/{SPECIES}/raw/cdna.fa.gz",
-        GTF   = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz",
-        CDS   = "{OUTDIR}/{SPECIES}/raw/cds.fa.gz",
-        ncRNA = "{OUTDIR}/{SPECIES}/raw/ncrna.fa.gz",
-        PEP   = "{OUTDIR}/{SPECIES}/raw/pep.fa.gz"
+        DNA   = "{OUTDIR}/{SPECIES}/genome/raw/genome.fa.gz",
+        cDNA  = "{OUTDIR}/{SPECIES}/genome/raw/cdna.fa.gz",
+        GTF   = "{OUTDIR}/{SPECIES}/genome/raw/annotations.gtf.gz",
+        CDS   = "{OUTDIR}/{SPECIES}/genome/raw/cds.fa.gz",
+        ncRNA = "{OUTDIR}/{SPECIES}/genome/raw/ncrna.fa.gz",
+        PEP   = "{OUTDIR}/{SPECIES}/genome/raw/pep.fa.gz"
     threads:
         1
     run:

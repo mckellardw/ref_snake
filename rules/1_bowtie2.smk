@@ -1,10 +1,10 @@
 # Build reference for bowtie2
-rule star:
+rule bowtie2:
     input:
-        DNA   = "{OUTDIR}/{SPECIES}/raw/genome.fa.gz",
-        GTF   = "{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz"
+        DNA   = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz",
+        GTF   = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/annotations.gtf.gz"
     output:
-        REF = "{OUTDIR}/{SPECIES}/bowtie2/TODO" 
+        REF = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bowtie2/TODO" 
     threads:
         config["CORES"]
     run:
