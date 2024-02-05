@@ -17,16 +17,14 @@ rule get_ref_metadata:
             # --which: gtf,dna,cdna,cds,cdrna,pep
             shell(
                 f"""
-                mkdir -p {OUTDIR}/{S}/raw
+                mkdir -p $(dirname {output.METADATA})
 
                 {EXEC['GGET']} ref \
                     --which all \
-                    --out {OUTDIR}/{S}/raw/metadata.json \
+                    --out  {output.METADATA} \
                     {S} \
                     2> {log.log}
                 """
-                # --download \
-                # gunzip {OUTDIR}/{S}/raw/*.gz
             )
         else:
             print(f"Species ({S}) not available from `gget`!")

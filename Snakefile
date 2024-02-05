@@ -73,7 +73,7 @@ rule all:
             "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/{FILE}", 
             OUTDIR=config["OUTDIR"],
             FILE = [
-                'ncrna.fa.gz',
+                'genome.fa.gz',
                 'annotations.gtf.gz'
             ],
             BIOTYPE=['rRNA'], #TODO- miRNA, tRNA, etc.

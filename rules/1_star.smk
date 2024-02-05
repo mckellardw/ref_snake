@@ -11,7 +11,10 @@ rule star:
     run:
         # biotype-specific params
         if wildcards.BIOTYPE == "rRNA":
-            genomeSAindexNbases=6
+            if wildcards.SPECIES == "mus_musculus":
+                genomeSAindexNbases=6
+            elif wildcards.SPECIES == "homo_sapiens":
+                genomeSAindexNbases=5
         else: # standard genome ref
             genomeSAindexNbases=14
 
