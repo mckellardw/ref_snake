@@ -5,7 +5,7 @@
 1) Build conda environment (#TODO - automate this!)
    *Note* - installing `gget` with `pip` has given me issues, I recommend using `pip`
 ```
-conda create --name ref_snake -c bioconda star kallisto bowtie bowtie2 minimap2
+conda create --name ref_snake -c bioconda star kallisto bowtie bowtie2 minimap2 bwa-mem2
 conda activate ref_snake
 pip install gget snakemake
 conda install -c conda-forge pigz
@@ -37,7 +37,6 @@ snakemake --cluster-config slurm_config.yml --cluster "sbatch -p {cluster.partit
 
 ## TODO
 - Tools to add/support:
-  - bwa
   - bowtie/2
   - salmon
 - Custom references
