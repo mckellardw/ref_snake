@@ -5,7 +5,7 @@ rule get_ref_metadata:
     output:
         METADATA = "{OUTDIR}/{SPECIES}/genome/raw/metadata.json"
     log:
-        log = "{OUTDIR}/{SPECIES}/logs/metadata.log"
+        log = "{OUTDIR}/{SPECIES}/genome/raw/metadata.log"
     threads:
         1
     run:
