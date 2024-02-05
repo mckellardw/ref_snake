@@ -4,7 +4,7 @@ rule get_rRNA:
         cDNA  = "{OUTDIR}/{SPECIES}/genome/raw/ncrna.fa.gz",
         GTF   = "{OUTDIR}/{SPECIES}/genome/raw/annotations.gtf.gz"
     output:
-        cDNA  = "{OUTDIR}/{SPECIES}/rRNA/raw/ncrna.fa.gz",
+        cDNA  = "{OUTDIR}/{SPECIES}/rRNA/raw/genome.fa.gz",
         GTF   = "{OUTDIR}/{SPECIES}/rRNA/raw/annotations.gtf.gz"
     threads:
         1

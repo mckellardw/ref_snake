@@ -50,7 +50,7 @@ rule all:
             SPECIES=SPECIES
         ),
         expand( # bwa-mem2 index
-            "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa{FILE}",
+            "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa.gz{FILE}",
             OUTDIR=config["OUTDIR"],
             BIOTYPE=['genome','rRNA'],
             FILE = ['.amb', '.ann', '.bwt.2bit.64', '.pac', '.0123'],

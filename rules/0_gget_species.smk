@@ -5,10 +5,12 @@ rule gget_species:
     threads:
         config["CORES"]
     log:
-        "logs/gget_species.log"
+        log = "logs/gget_species.log"
     run:
         (
             f"""
-            {GGET_EXEC} ref --list_species > {output.SPECIES_LIST}
+            {EXEC['GGET']} ref --list_species \
+            > {output.SPECIES_LIST} \
+            2> {log.log}
             """
         )
