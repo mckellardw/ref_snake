@@ -70,3 +70,20 @@ rule get_ref_files:
         else:
             print("TODO")
             # FOrmat stuff for custom refs here...
+
+
+
+rule get_chrom_sizes:
+    input:
+        DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz"
+    output:
+        CHRSIZES="{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/chrom_sizes.tsv"
+    run:
+        shell(
+            f"""
+            zcat {input.DNA} \
+            | cut -f1,2 \
+            | sort -V \
+            > {output.CHRSIZES}
+            """
+        )
