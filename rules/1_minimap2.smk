@@ -2,7 +2,7 @@
 ## Documentation: https://lh3.github.io/minimap2/minimap2.html
 rule minimap2:
     input:
-        DNA   = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz"
+        DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz"
     output:
         REF = "{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/target.mmi" 
     threads:

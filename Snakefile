@@ -61,8 +61,10 @@ rule all:
             FILE = [
                 "metadata.json",
                 "genome.fa.gz",
+                "genome.fa.fai",
                 "cdna.fa.gz",
                 "annotations.gtf.gz",
+                "annotations.bed",
                 "cds.fa.gz",
                 "ncrna.fa.gz",
                 "pep.fa.gz",

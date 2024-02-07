@@ -72,18 +72,58 @@ rule get_ref_files:
             # FOrmat stuff for custom refs here...
 
 
+rule gunzip_genome:
+    input:
+        DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz"
+    output:
+        DNA = temp("{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa")
+    run:
+        shell(
+            f"""
+            pigz -d {input.DNA} 
+            """
+        )
+
+rule index_genome:
+    input:
+        DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa"
+    output:
+        FAI = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.fai"
+    run:
+        shell(
+            f"""
+            {EXEC['SAMTOOLS']} faidx {input.DNA}
+            """
+        )
+
 
 rule get_chrom_sizes:
     input:
-        DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz"
+        FAI = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.fai"
     output:
         CHRSIZES="{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/chrom_sizes.tsv"
     run:
         shell(
             f"""
-            zcat {input.DNA} \
-            | cut -f1,2 \
+            cut -f1,2 {input.FAI} \
             | sort -V \
             > {output.CHRSIZES}
+            """
+        )
+
+rule call_paftools:
+    input:
+        GTF = "{OUTDIR}/{SPECIES}/genome/raw/annotations.gtf.gz"
+    output:
+        BED = "{OUTDIR}/{SPECIES}/genome/raw/annotations.bed"
+    log:
+        log = "{OUTDIR}/{SPECIES}/genome/logs/gff2bed.log"
+    run:
+        shell(
+            f"""
+            {EXEC['K8']} scripts/js/paftools.js gff2bed \
+                -j {input.GTF} \
+                > {output.BED} \
+                2> {log.log}
             """
         )

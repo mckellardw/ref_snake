@@ -2,23 +2,24 @@
 
 
 ## Setup/install
-1) Build conda environment (#TODO - automate this!)
+1) Build mamba/conda environment:
    *Note* - installing `gget` with `pip` has given me issues, I recommend using `pip`
 ```
-conda create --name ref_snake -c bioconda star kallisto bowtie bowtie2 minimap2 bwa-mem2
-conda activate ref_snake
+mamba create --name ref_snake -c bioconda star kb-python bowtie bowtie2 minimap2 bwa-mem2
+mamba activate ref_snake
 pip install gget snakemake
-conda install -c conda-forge pigz
+mamba install -c conda-forge pigz
 ```
+  *Another note* - if you already have these installed on your system, you can update the executable paths in `config.yml` (`EXEC`) as they are all called using this info
 
-2) Modify `config.yaml` to include what species you want to build refs for
+1) Modify `config.yaml` to include what species you want to build refs for
 ```
 SPECIES:
   mus_musculus
   homo_sapiens
 ```
 
-3) Run pipeline:
+1) Run pipeline:
 ```
 snakemake -j 16
 ```
