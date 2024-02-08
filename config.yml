@@ -25,6 +25,7 @@ EXEC:
   BWA: bwa
   BWA_MEM2: bwa-mem2
   GGET: gget
+  K8: scripts/k8-0.2.4/k8-Linux
   KALLISTO: kallisto
   KB: kb
   MINIMAP2: minimap2

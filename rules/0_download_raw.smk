@@ -80,9 +80,10 @@ rule gunzip_genome:
     run:
         shell(
             f"""
-            pigz -d {input.DNA} 
+            zcat {input.DNA} > {output.DNA}
             """
         )
+
 
 rule index_genome:
     input:

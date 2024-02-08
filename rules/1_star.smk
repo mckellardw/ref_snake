@@ -4,8 +4,8 @@ rule star:
         DNA   = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz",
         GTF   = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/annotations.gtf.gz"
     output:
-        REF = "{OUTDIR}/{SPECIES}/{BIOTYPE}/STAR/Genome"
-        # REFDIR = directory("{OUTDIR}/{SPECIES}/{BIOTYPE}/STAR"),
+        REF = "{OUTDIR}/{SPECIES}/{BIOTYPE}/STAR/Genome",
+        # TMPDIR = temp(directory("{OUTDIR}/{SPECIES}/{BIOTYPE}/STAR/_STARtmp")),
     threads:
         config["CORES"]
     run:
