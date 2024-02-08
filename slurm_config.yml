@@ -1,8 +1,6 @@
 # slurm_config.yml - cluster configuration
 __default__:
     job-name: ref_snake
-    mail-type: FAIL
-    mail-user: dmckellar@nygenome.org
     partition: pe2
     time: 2:00:00 # time limit for each job
     nodes: 1
