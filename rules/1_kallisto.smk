@@ -19,6 +19,8 @@ rule kb:
         shell(
             f"""
             mkdir -p {output.REFDIR}
+            
+            {EXEC["KALLISTO"]} version > {log.log}
 
             {EXEC["KB"]} ref \
                 --kallisto {EXEC["KALLISTO"]} \
@@ -27,7 +29,7 @@ rule kb:
                 -g {output.T2G} \
                 -f1 {output.cDNA_FASTA} \
                 {input.DNA} {input.GTF} \
-            2> {log.log}
+            2>> {log.log}
             """
         )
 
@@ -52,6 +54,8 @@ rule kb_velocity:
         shell(
             f"""
             mkdir -p {output.REFDIR}
+            
+            {EXEC["KALLISTO"]} version > {log.log}
 
             {EXEC["KB"]} ref \
                 --verbose \
@@ -65,7 +69,7 @@ rule kb_velocity:
                 -c1 {output.cDNA_T2C} \
                 -c2 {output.INTRON_T2C} \
                 {input.DNA} {input.GTF} \
-            2> {log.log}
+            2>> {log.log}
             """
         )
 
@@ -91,6 +95,8 @@ rule kb_nucleus:
         shell(
             f"""
             mkdir -p {output.REFDIR}
+            
+            {EXEC["KALLISTO"]} version > {log.log}
 
             {EXEC["KB"]} ref \
                 --verbose \
@@ -104,6 +110,6 @@ rule kb_nucleus:
                 -c1 {output.cDNA_T2C} \
                 -c2 {output.INTRON_T2C} \
                 {input.DNA} {input.GTF} \
-            2> {log.log}
+            2>> {log.log}
             """
         )
