@@ -15,6 +15,7 @@ zcat ${FASTA_cDNA} \
 | awk \
     -v RS=">" \
     -v FS=" " \
+    -vOFS='' \
     '$5=="gene_biotype:rRNA" || $5=="gene_biotype:Mt_rRNA" {
         seqname = $1;
         source = "custom";

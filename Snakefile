@@ -17,9 +17,29 @@ OUTDIR = config["OUTDIR"]
 # Executables & params
 ########################################################################################################
 EXEC = config["EXEC"]
-
 SPECIES = config["SPECIES"].split()
 
+########################################################################################################
+# Rules
+########################################################################################################
+## Pre-run set up
+include: "rules/0_gget_species.smk"
+include: "rules/0_download_raw.smk"
+include: "rules/0_subset_biotype.smk"
+
+## Rules for each aligner
+include: "rules/1_pseudo_cellranger.smk"
+include: "rules/1_star.smk"
+include: "rules/1_kallisto.smk"
+# include: "rules/1_bowtie.smk"
+include: "rules/1_bwa.smk"
+include: "rules/1_minimap2.smk"
+
+# Ref genome comparisons
+##TODO
+
+########################################################################################################
+# Target files
 ########################################################################################################
 rule all:
     input:
@@ -85,20 +105,4 @@ rule all:
         [ # list of species supported by gget
             "resources/gget_species.txt"
         ]
-
-# import rules
-## Pre-run set up
-include: "rules/0_gget_species.smk"
-include: "rules/0_download_raw.smk"
-include: "rules/0_subset_biotype.smk"
-
-## Rules for each aligner
-include: "rules/1_pseudo_cellranger.smk"
-include: "rules/1_star.smk"
-include: "rules/1_kallisto.smk"
-# include: "rules/1_bowtie.smk"
-include: "rules/1_bwa.smk"
-include: "rules/1_minimap2.smk"
-
-# Ref genome comparisons
-##TODO
+#
