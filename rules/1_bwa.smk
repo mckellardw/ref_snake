@@ -2,7 +2,7 @@
 ## Documentation: https://lh3.github.io/minimap2/minimap2.html
 rule bwa_mem2:
     input:
-        DNA = "{OUTDIR}/{SPECIES}/genome/raw/genome.fa.gz"
+        DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz"
     output:
         FA  = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa.gz",
         AMB = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa.gz.amb",
