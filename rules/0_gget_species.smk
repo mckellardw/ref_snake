@@ -6,11 +6,12 @@ rule gget_species:
         config["CORES"]
     log:
         log = "logs/gget_species.log"
-    run:
-        (
-            f"""
-            {EXEC['GGET']} ref --list_species \
-            > {output.SPECIES_LIST} \
-            2> {log.log}
-            """
-        )
+    conda:
+        f"{workflow.basedir}/envs/gget.yml"
+    shell:
+        """
+        gget ref --list_species \
+        > {output.SPECIES_LIST} \
+        2> {log.log}
+        """
+        # {EXEC['GGET']}

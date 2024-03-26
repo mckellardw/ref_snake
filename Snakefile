@@ -1,5 +1,4 @@
-# genomes
-
+# ref_snake
 import pandas as pd
 
 ########################################################################################################
@@ -16,7 +15,7 @@ OUTDIR = config["OUTDIR"]
 ########################################################################################################
 # Executables & params
 ########################################################################################################
-EXEC = config["EXEC"]
+EXEC    = config["EXEC"]
 SPECIES = config["SPECIES"].split()
 
 ########################################################################################################
@@ -39,6 +38,16 @@ include: "rules/1_minimap2.smk"
 ##TODO
 
 ########################################################################################################
+# Wildcard constraints
+########################################################################################################
+# SPECIES_REGEX=r"^[a-zA-Z]+_[a-zA-Z]+$"
+# SPECIES_REGEX="^[a-zA-Z_]+$"
+wildcard_constraints:
+    SPECIES = r"[a-z_]+",
+    BIOTYPE = r"[a-zA-Z]+",
+    OUTDIR  = config["OUTDIR"]
+
+########################################################################################################
 # Target files
 ########################################################################################################
 rule all:
@@ -53,7 +62,7 @@ rule all:
             "{OUTDIR}/{SPECIES}/{BIOTYPE}/{WORKFLOW}/transcriptome.idx", 
             OUTDIR=config["OUTDIR"],
             WORKFLOW=["kb", "kb_velo", "kb_nuc"],
-            BIOTYPE=["genome"],
+            BIOTYPE=["transcriptome"],
             SPECIES=SPECIES
         ),
         expand( # STAR reference
@@ -65,30 +74,31 @@ rule all:
         expand( # minimap2 index
             "{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/target.mmi", 
             OUTDIR=config["OUTDIR"],
-            BIOTYPE=["genome"],
+            BIOTYPE=["genome", "transcriptome"],
             SPECIES=SPECIES
         ),
         expand( # bwa-mem2 index
-            "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa.gz{FILE}",
+            "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/ref.fa.gz{FILE}",
             OUTDIR=config["OUTDIR"],
-            BIOTYPE=["genome","rRNA"],
+            BIOTYPE=["genome","transcriptome","rRNA"],
             FILE = [".amb", ".ann", ".bwt.2bit.64", ".pac", ".0123"],
             SPECIES=SPECIES
         ),
         expand( # Raw data and metadata for each species
-            "{OUTDIR}/{SPECIES}/genome/raw/{FILE}", 
+            "{OUTDIR}/{SPECIES}/raw/{FILE}", 
             OUTDIR=config["OUTDIR"],
             FILE = [
                 "metadata.json",
                 "genome.fa.gz",
                 "genome.fa.fai",
-                "cdna.fa.gz",
+                "transcriptome.fa.gz",
                 "annotations.gtf.gz",
                 "annotations.bed",
                 "cds.fa.gz",
                 "ncrna.fa.gz",
                 "pep.fa.gz",
                 "chrom_sizes.tsv"
+                # "rRNA.fa.gz"
             ],
             SPECIES=SPECIES
         ),
@@ -96,7 +106,7 @@ rule all:
             "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/{FILE}", 
             OUTDIR=config["OUTDIR"],
             FILE = [
-                "genome.fa.gz",
+                "ref.fa.gz",
                 "annotations.gtf.gz"
             ],
             BIOTYPE=["rRNA"], #TODO- miRNA, tRNA, etc.

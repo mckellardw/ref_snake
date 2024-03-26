@@ -1,6 +1,6 @@
 
-.snakemake/*
-.slurm_log/**
+.snakemake/**
+.slurm/**
 
 **.fa.gz
 **.fasta.fz

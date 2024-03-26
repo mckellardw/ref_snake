@@ -2,14 +2,14 @@
 ## Documentation: https://lh3.github.io/minimap2/minimap2.html
 rule bwa_mem2:
     input:
-        DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/genome.fa.gz"
+        DNA = "{OUTDIR}/{SPECIES}/raw/{BIOTYPE}.fa.gz"
     output:
-        FA  = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa.gz",
-        AMB = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa.gz.amb",
-        ANN = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa.gz.ann",
-        BWT = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa.gz.bwt.2bit.64",
-        PAC = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa.gz.pac",
-        NUM = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/genome.fa.gz.0123"
+        FA  = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/ref.fa.gz",
+        AMB = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/ref.fa.gz.amb",
+        ANN = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/ref.fa.gz.ann",
+        BWT = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/ref.fa.gz.bwt.2bit.64",
+        PAC = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/ref.fa.gz.pac",
+        NUM = "{OUTDIR}/{SPECIES}/{BIOTYPE}/bwa_mem2/ref.fa.gz.0123"
     threads:
         config["CORES"]
     log:
@@ -17,7 +17,8 @@ rule bwa_mem2:
     run:
         shell(
             f"""
-            cp {input.DNA} $(dirname {output.FA})
+            mkdir -p $(dirname {output.FA})
+            cp {input.DNA} {output.FA}
 
             {EXEC["BWA_MEM2"]} index \
                 {output.FA} \

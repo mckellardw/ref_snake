@@ -1,26 +1,29 @@
 # Download the reference sequence and annotations
+## Extract rRNA sequences from cDNA/transcript fasta
+## Build custom gtf from the cDNA/transcript fasta
 rule get_rRNA:
     input:
-        cDNA  = "{OUTDIR}/{SPECIES}/genome/raw/ncrna.fa.gz",
-        GTF   = "{OUTDIR}/{SPECIES}/genome/raw/annotations.gtf.gz"
+        FA  = OUTDIR+"/{SPECIES}/raw/ncrna.fa.gz",
+        GTF = OUTDIR+"/{SPECIES}/raw/annotations.gtf.gz",
     output:
-        cDNA  = "{OUTDIR}/{SPECIES}/rRNA/raw/genome.fa.gz",
-        GTF   = "{OUTDIR}/{SPECIES}/rRNA/raw/annotations.gtf.gz"
+        REF = OUTDIR+"/{SPECIES}/raw/rRNA.fa.gz",
+        FA  = OUTDIR+"/{SPECIES}/rRNA/raw/ref.fa.gz",
+        GTF = OUTDIR+"/{SPECIES}/rRNA/raw/annotations.gtf.gz",
     threads:
         1
     run:
-        # Extract rRNA sequences from cDNA/transcript fasta
-        # Build custom gtf from the cDNA/transcript fasta
         shell(
             f"""
-            mkdir -p $(dirname {output.cDNA})
+            mkdir -p $(dirname {output.FA})
 
             bash scripts/bash/extract_rRNA_fasta.sh \
-                {input.cDNA} \
-                {output.cDNA}
+                {input.FA} \
+                {output.FA}
             
             bash scripts/bash/extract_rRNA_gtf.sh \
-                {output.cDNA} \
+                {output.FA} \
                 {output.GTF}
+
+            cp {output.FA} {output.REF}
             """
         )

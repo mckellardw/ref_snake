@@ -5,8 +5,48 @@ __default__:
     time: 2:00:00 # time limit for each job
     nodes: 1
     threads: 16 #Request n cores be allocated per node.
+    mem: 16G
+    output: .slurm/%j.log
+
+
+star_genome:
+    time: 2:00:00 # time limit for each job
+    nodes: 1
+    threads: 16 #Request n cores be allocated per node.
     mem: 220G
-    output: .slurm_log/%j.log
-    chdir: /gpfs/commons/groups/innovation/dwm/ref_snake
+    
+star_rRNA:
+    time: 2:00:00 # time limit for each job
+    nodes: 1
+    threads: 16 #Request n cores be allocated per node.
+    mem: 220G
 
+minimap2:
+    time: 2:00:00 # time limit for each job
+    nodes: 1
+    threads: 16 #Request n cores be allocated per node.
+    mem: 64G
+    
+bwa_mem2:
+    time: 2:00:00 # time limit for each job
+    nodes: 1
+    threads: 16 #Request n cores be allocated per node.
+    mem: 64G
+    
+kb:
+    time: 2:00:00 
+    nodes: 1
+    threads: 16 
+    mem: 128G
 
+kb_velocity:
+    time: 2:00:00 
+    nodes: 1
+    threads: 16 
+    mem: 128G
+    
+kb_nucleus:
+    time: 2:00:00 
+    nodes: 1
+    threads: 16 
+    mem: 128G
