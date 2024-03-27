@@ -2,13 +2,12 @@
 ## Documentation: https://lh3.github.io/minimap2/minimap2.html
 rule minimap2:
     input:
-        DNA = "{OUTDIR}/{SPECIES}/raw/{BIOTYPE}.fa.gz"
+        DNA="{OUTDIR}/{SPECIES}/raw/{BIOTYPE}.fa.gz",
     output:
-        REF = "{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/target.mmi" 
-    threads:
-        config["CORES"]
+        REF="{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/target.mmi",
+    threads: config["CORES"]
     log:
-        log = "{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/mm2.log" 
+        log="{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/mm2.log",
     run:
         shell(
             f"""
@@ -19,15 +18,16 @@ rule minimap2:
             """
         )
 
+
 # rule minimap2_transcriptome:
 #     input:
 #         DNA = "{OUTDIR}/{SPECIES}/{BIOTYPE}/raw/cdna.fa.gz"
 #     output:
-#         REF = "{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/target.mmi" 
+#         REF = "{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/target.mmi"
 #     threads:
 #         config["CORES"]
 #     log:
-#         log = "{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/mm2.log" 
+#         log = "{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/mm2.log"
 #     run:
 #         shell(
 #             f"""

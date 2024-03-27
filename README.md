@@ -3,9 +3,9 @@
 
 ## Setup/install
 1) Build mamba/conda environment:
-   *Note* - installing `gget` with `pip` has given me issues, I recommend using `pip`
+   *Note* - installing `gget` with `conda` has given me issues, I recommend using `pip`
 ```
-mamba create --name ref_snake -c bioconda star kb-python bowtie bowtie2 minimap2 bwa-mem2
+mamba create --name ref_snake -f env
 mamba activate ref_snake
 pip install gget snakemake
 mamba install -c conda-forge pigz
@@ -26,7 +26,7 @@ snakemake -j 16
 
 Run pipeline w/ slurm:
 ```
-snakemake --cluster-config slurm_config.yml --cluster "sbatch -p {cluster.partition} -t {cluster.time} -N {cluster.nodes} --mem {cluster.mem} -o {cluster.output} --cpus-per-task={cluster.threads}" -j 32 --cluster-cancel scancel --latency-wait 30
+snakemake --cluster-config slurm_config.yml --cluster "sbatch -p {cluster.partition} -t {cluster.time} -N {cluster.nodes} --mem {cluster.mem} -o {cluster.output} --cpus-per-task={cluster.threads}" -j 32 --cluster-cancel scancel --use-conda --conda-frontend mamba
 ```
 
 ## Output file tree

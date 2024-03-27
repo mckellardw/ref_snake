@@ -25,13 +25,13 @@ minimap2:
     time: 2:00:00 # time limit for each job
     nodes: 1
     threads: 16 #Request n cores be allocated per node.
-    mem: 64G
+    mem: 128G
     
 bwa_mem2:
     time: 2:00:00 # time limit for each job
     nodes: 1
     threads: 16 #Request n cores be allocated per node.
-    mem: 64G
+    mem: 128G
     
 kb:
     time: 2:00:00 

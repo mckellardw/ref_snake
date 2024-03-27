@@ -3,14 +3,13 @@
 ## Build custom gtf from the cDNA/transcript fasta
 rule get_rRNA:
     input:
-        FA  = OUTDIR+"/{SPECIES}/raw/ncrna.fa.gz",
-        GTF = OUTDIR+"/{SPECIES}/raw/annotations.gtf.gz",
+        FA=OUTDIR + "/{SPECIES}/raw/ncrna.fa.gz",
+        GTF=OUTDIR + "/{SPECIES}/raw/annotations.gtf.gz",
     output:
-        REF = OUTDIR+"/{SPECIES}/raw/rRNA.fa.gz",
-        FA  = OUTDIR+"/{SPECIES}/rRNA/raw/ref.fa.gz",
-        GTF = OUTDIR+"/{SPECIES}/rRNA/raw/annotations.gtf.gz",
-    threads:
-        1
+        REF=OUTDIR + "/{SPECIES}/raw/rRNA.fa.gz",
+        FA=OUTDIR + "/{SPECIES}/rRNA/raw/ref.fa.gz",
+        GTF=OUTDIR + "/{SPECIES}/rRNA/raw/annotations.gtf.gz",
+    threads: 1
     run:
         shell(
             f"""
