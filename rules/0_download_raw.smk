@@ -135,3 +135,17 @@ rule call_paftools:
                 2> {log.log}
             """
         )
+
+rule reformat_gtf_to_tsv:
+    input:
+        GTF="{OUTDIR}/{SPECIES}/raw/annotations.gtf.gz",
+    output:
+        TSV="{OUTDIR}/{SPECIES}/raw/{FEATURE}_info.tsv",
+    log:
+        log="{OUTDIR}/{SPECIES}/logs/{FEATURE}_info.log",
+    threads: 1
+    shell:
+        """
+        bash scripts/bash/gtf2tsv_info.sh {input.GTF} {wildcards.FEATURE} \
+        > {output.TSV}
+        """

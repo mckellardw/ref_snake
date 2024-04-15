@@ -34,14 +34,9 @@ include: "rules/1_kallisto.smk"
 include: "rules/1_bwa.smk"
 include: "rules/1_minimap2.smk"
 
-# Ref genome comparisons
-##TODO
-
 ########################################################################################################
 # Wildcard constraints
 ########################################################################################################
-# SPECIES_REGEX=r"^[a-zA-Z]+_[a-zA-Z]+$"
-# SPECIES_REGEX="^[a-zA-Z_]+$"
 wildcard_constraints:
     SPECIES = r"[a-z_]+",
     BIOTYPE = r"[a-zA-Z]+",
@@ -97,7 +92,9 @@ rule all:
                 "cds.fa.gz",
                 "ncrna.fa.gz",
                 "pep.fa.gz",
-                "chrom_sizes.tsv"
+                "chrom_sizes.tsv",
+                "gene_info.tsv",
+                "transcript_info.tsv",
                 # "rRNA.fa.gz"
             ],
             SPECIES=SPECIES
@@ -115,4 +112,3 @@ rule all:
         [ # list of species supported by gget
             "resources/gget_species.txt"
         ]
-#
