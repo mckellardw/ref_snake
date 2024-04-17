@@ -1,7 +1,7 @@
 # genomes 
 
 ########################################################################################################
-# Run settings
+# Run settings - also see config/slurm.yml for slurm resource management
 ########################################################################################################
 CORES: 16 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
 MEMLIMIT: 120000000000  # limit in bytes
@@ -38,7 +38,6 @@ SPECIES:
   homo_sapiens
 
 #TODO
-CUSTOM: "path/to/sample_sheet.csv"
-# - space-delimited columns for .fa inputs & .gtf inputs (multi-species references)
-# - Add separate outputs in `rule all` for custom/gget refs
-# - 
+CUSTOM: "sample_sheets/sample_sheet.csv"
+# - columns for .fa inputs & .gtf inputs (multi-species references)
+# - Add separate outputs in `rule all` for custom/gget refs?

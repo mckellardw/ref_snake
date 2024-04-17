@@ -21,6 +21,7 @@ rule bwa_mem2:
 
             {EXEC["BWA_MEM2"]} index \
                 {output.FA} \
+            1> {log.log} \
             2> {log.log}
             """
         )

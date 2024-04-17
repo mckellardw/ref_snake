@@ -4,11 +4,11 @@ __default__:
     partition: pe2
     time: 2:00:00 # time limit for each job
     nodes: 1
-    threads: 16 #Request n cores be allocated per node.
-    mem: 16G
+    threads: 1 #Request n cores be allocated per node.
+    mem: 4G
     output: .slurm/%j.log
 
-
+# rules...
 star_genome:
     time: 2:00:00 # time limit for each job
     nodes: 1
@@ -37,16 +37,16 @@ kb:
     time: 2:00:00 
     nodes: 1
     threads: 16 
-    mem: 128G
+    mem: 220G
 
 kb_velocity:
     time: 2:00:00 
     nodes: 1
     threads: 16 
-    mem: 128G
+    mem: 220G
     
 kb_nucleus:
     time: 2:00:00 
     nodes: 1
     threads: 16 
-    mem: 128G
+    mem: 220G

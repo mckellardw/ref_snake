@@ -160,6 +160,23 @@ ref_snake/out/
   
 ### Misc.
 - Download GENCODE references w/ `wget`
+
+Mus musculus:
 ```
-wget -e robots=off --recursive --no-parent  https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M33
+wget -e robots=off --recursive --no-parent  https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/latest_release/
+```
+
+optionally, run in the background b/c this takes a while...
+```
+nohup wget -e robots=off --recursive --no-parent  https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/latest_release > wget_output.log 2>&1 &
+```
+
+Homo sapiens:
+```
+wget -e robots=off --recursive --no-parent  https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/
+```
+
+optionally, run in the background b/c this takes a while...
+```
+nohup wget -e robots=off --recursive --no-parent  https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/ > wget_output.log 2>&1 &
 ```
