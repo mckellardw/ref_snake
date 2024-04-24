@@ -3,9 +3,11 @@
 ########################################################################################################
 # Run settings - also see config/slurm.yml for slurm resource management
 ########################################################################################################
-CORES: 16 # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
+CORES: 16     # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
 MEMLIMIT: 120000000000  # limit in bytes
-MEMLIMIT_GB: 64G       # mem limit for kallisto
+MEMLIMIT_GB: 64G        # mem limit for kallisto
+
+GGET_RETRIES: 50    # number of retries for gget download rules
 
 ########################################################################################################
 # Important directory file paths
@@ -35,7 +37,7 @@ EXEC:
 # Dict of species to be included. See `resources/gget_species.txt` for options
 SPECIES:
   mus_musculus
-  homo_sapiens
+  # homo_sapiens
 
 #TODO
 CUSTOM: "sample_sheets/sample_sheet.csv"
