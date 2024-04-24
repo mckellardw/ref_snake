@@ -7,6 +7,7 @@ rule get_ref_metadata:
     log:
         log="{OUTDIR}/{SPECIES}/raw/metadata.log",
     threads: 1
+    retries: config["GGET_RETRIES"]
     run:
         available_species = pd.read_csv(input.SPECIES_LIST, header=None)[
             0
@@ -48,6 +49,7 @@ rule get_ref_files:
         ncRNA="{OUTDIR}/{SPECIES}/raw/ncrna.fa.gz",
         PEP="{OUTDIR}/{SPECIES}/raw/pep.fa.gz",
     threads: 1
+    retries: config["GGET_RETRIES"]
     run:
         import json
 
