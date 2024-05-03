@@ -37,7 +37,6 @@ rule kb:
         """
 
 
-
 # Build reference for RNA velocity inference w/ kallisto
 rule kb_velocity:
     input:

@@ -6,17 +6,10 @@ rule star_genome:
     output:
         GTF=temp("{OUTDIR}/{SPECIES}/raw/annotations.gtf"),
         REF="{OUTDIR}/{SPECIES}/genome/STAR/Genome",
+    params:
+        genomeSAindexNbases=lambda w: get_genomeSAindexNbases(w),
     threads: config["CORES"]
     run:
-        genomeSAindexNbases = 14
-        # # biotype-specific params
-        # if wildcards.BIOTYPE == "rRNA":
-        #     if wildcards.SPECIES == "mus_musculus":
-        #         genomeSAindexNbases=6
-        #     elif wildcards.SPECIES == "homo_sapiens":
-        #         genomeSAindexNbases=5
-        # else: # standard genome ref
-
         shell(
             f"""
             pigz \
@@ -38,7 +31,38 @@ rule star_genome:
                 --genomeFastaFiles {input.FA.replace('.gz','')} \
                 --sjdbGTFfile {input.GTF.replace('.gz','')} \
                 --sjdbGTFfeatureExon exon \
-                --genomeSAindexNbases {genomeSAindexNbases}
+                --genomeSAindexNbases {params.genomeSAindexNbases}
+            """
+        )
+
+
+# Build reference for STAR/STARsolo
+rule star_genome_primary:
+    input:
+        FA="{OUTDIR}/{SPECIES}/raw/genome_primary.fa",
+        GTF="{OUTDIR}/{SPECIES}/raw/annotations_primary.gtf",
+    output:
+        # GTF=temp("{OUTDIR}/{SPECIES}/raw/annotations_primary.gtf"),
+        REF="{OUTDIR}/{SPECIES}/genome_primary/STAR/Genome",
+    params:
+        genomeSAindexNbases=lambda w: get_genomeSAindexNbases(w),
+    threads: config["CORES"]
+    run:
+        shell(
+            f"""
+            mkdir -p $(dirname {output.REF})
+
+            {EXEC['STAR']} \
+                --runMode genomeGenerate \
+                --outTmpDir $(dirname {output.REF})/_STARtmp \
+                --limitBAMsortRAM {config['MEMLIMIT']} \
+                --runThreadN {threads} \
+                --readFilesCommand zcat \
+                --genomeDir $(dirname {output.REF}) \
+                --genomeFastaFiles {input.FA} \
+                --sjdbGTFfile {input.GTF} \
+                --sjdbGTFfeatureExon exon \
+                --genomeSAindexNbases {params.genomeSAindexNbases}
             """
         )
 
@@ -50,13 +74,10 @@ rule star_rRNA:
         GTF="{OUTDIR}/{SPECIES}/rRNA/raw/annotations.gtf.gz",
     output:
         REF="{OUTDIR}/{SPECIES}/rRNA/STAR/Genome",
+    params:
+        genomeSAindexNbases=lambda w: get_genomeSAindexNbases(w),
     threads: config["CORES"]
     run:
-        if wildcards.SPECIES == "mus_musculus":
-            genomeSAindexNbases = 6
-        elif wildcards.SPECIES == "homo_sapiens":
-            genomeSAindexNbases = 5
-
         shell(
             f"""
             pigz \
@@ -78,6 +99,6 @@ rule star_rRNA:
                 --genomeFastaFiles {input.FA.replace('.gz','')} \
                 --sjdbGTFfile {input.GTF.replace('.gz','')} \
                 --sjdbGTFfeatureExon exon \
-                --genomeSAindexNbases {genomeSAindexNbases}
+                --genomeSAindexNbases {params.genomeSAindexNbases}
             """
         )

@@ -21,9 +21,12 @@ SPECIES = config["SPECIES"].split()
 ########################################################################################################
 # Rules
 ########################################################################################################
+include: "rules/utils.smk"
+
 ## Pre-run set up
 include: "rules/0_gget_species.smk"
 include: "rules/0_download_raw.smk"
+include: "rules/0_process_raw.smk"
 include: "rules/0_subset_biotype.smk"
 
 ## Rules for each aligner
@@ -63,7 +66,7 @@ rule all:
         expand( # STAR reference
             "{OUTDIR}/{SPECIES}/{BIOTYPE}/STAR/Genome", 
             OUTDIR=config["OUTDIR"],
-            BIOTYPE=["genome","rRNA"],
+            BIOTYPE=["genome","genome_primary","rRNA"],
             SPECIES=SPECIES
         ),
         expand( # minimap2 index
