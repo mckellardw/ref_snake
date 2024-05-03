@@ -31,10 +31,12 @@ rule index_fasta:
         )
 
 rule gzip_file:
-    input: "{FILE}"
-    output: "{FILE}.gz"
+    input: "{OUTDIR}/{SPECIES}/{FILE}"
+    output: "{OUTDIR}/{SPECIES}/{FILE}.gz"
     wildcard_constraints:
-        FILE=r"^(?!.*\.gz$).*"
+        # FILE=r"^(?!.*\.gz$).*"
+        FILE=".*(?<!\.gz)$"
+        # FILE=r".*\.(fa|fasta|fq|fastq)$"
     threads: config["CORES"]
     shell:
         """
@@ -46,10 +48,11 @@ rule gzip_file:
         """
 
 rule gunzip_file:
-    input: "{FILE}.gz"
-    output: "{FILE}"
+    input: "{OUTDIR}/{SPECIES}/{FILE}.gz"
+    output: "{OUTDIR}/{SPECIES}/{FILE}"
     wildcard_constraints:
-        FILE=r"^(?!.*\.gz$).*"
+        # FILE="^(?!.*\.gz$).*"
+        FILE=".*\.(fa|fasta|fq|fastq)$"
     threads: config["CORES"]
     shell:
         """

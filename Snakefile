@@ -19,6 +19,14 @@ EXEC    = config["EXEC"]
 SPECIES = config["SPECIES"].split()
 
 ########################################################################################################
+# Wildcard constraints
+########################################################################################################
+wildcard_constraints:
+    SPECIES = r"[a-z_]+",
+    BIOTYPE = r"[a-zA-Z]+",
+    OUTDIR  = config["OUTDIR"]
+    
+########################################################################################################
 # Rules
 ########################################################################################################
 include: "rules/utils.smk"
@@ -38,14 +46,6 @@ include: "rules/1_bwa.smk"
 include: "rules/1_minimap2.smk"
 
 ########################################################################################################
-# Wildcard constraints
-########################################################################################################
-wildcard_constraints:
-    SPECIES = r"[a-z_]+",
-    BIOTYPE = r"[a-zA-Z]+",
-    OUTDIR  = config["OUTDIR"]
-
-########################################################################################################
 # Target files
 ########################################################################################################
 rule all:
@@ -59,7 +59,7 @@ rule all:
         expand( # kallisto-bustools reference(s)
             "{OUTDIR}/{SPECIES}/{BIOTYPE}/{WORKFLOW}/transcriptome.idx", 
             OUTDIR=config["OUTDIR"],
-            WORKFLOW=["kb", "kb_velo", "kb_nuc"],
+            WORKFLOW=["kb", "kb_velo", "kb_nuc", "kb_primary", "kb_velo_primary", "kb_nuc_primary"],
             BIOTYPE=["transcriptome"],
             SPECIES=SPECIES
         ),
