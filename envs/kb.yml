@@ -12,4 +12,3 @@ dependencies:
       - bustools==0.1.0.dev2
       - kb-python==0.28.2
       - snakemake==7.32.4
-prefix: /nfs/home/dmckellar/mambaforge/envs/kb

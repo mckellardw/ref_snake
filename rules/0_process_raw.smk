@@ -34,7 +34,6 @@ rule get_primary_chrom_info:
         )
 
 
-
 # Get primary contigs
 rule get_primary_contigs:
     input:
@@ -52,6 +51,8 @@ rule get_primary_contigs:
             """
         )
         # awk -f scripts/awk/fa_filterContigs.awk {input.TXT} {input.FA} > {output.FA}
+
+
 
 rule primary_annotations:
     input:

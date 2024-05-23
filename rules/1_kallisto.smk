@@ -22,18 +22,13 @@ rule kb:
         """
         mkdir -p $(dirname {output.IDX})
         
-        {params.KALLISTO} version > {log.log}
-
         {params.KB} ref \
-            --kallisto {params.KALLISTO} \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
             -g {output.T2G} \
             -f1 {output.cDNA_FA} \
             {input.DNA} {input.GTF} \
         2>> {log.log}
-        
-        ls -a $(dirname {output.IDX}) >> {log.log}
         """
 
 
@@ -61,11 +56,8 @@ rule kb_velocity:
         """
         mkdir -p $(dirname {output.IDX})
         
-        {params.KALLISTO} version > {log.log}
-
         {params.KB} ref \
             --verbose \
-            --kallisto {params.KALLISTO} \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
             -g {output.T2G} \
@@ -76,8 +68,6 @@ rule kb_velocity:
             -c2 {output.INTRON_T2C} \
             {input.DNA} {input.GTF} \
         2>> {log.log}
-
-        ls -a $(dirname {output.IDX}) >> {log.log}
         """
 
 
@@ -105,11 +95,8 @@ rule kb_nucleus:
         """
         mkdir -p $(dirname {output.IDX})
         
-        {params.KALLISTO} version > {log.log}
-
         {params.KB} ref \
             --verbose \
-            --kallisto {params.KALLISTO} \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
             -g {output.T2G} \
@@ -120,15 +107,14 @@ rule kb_nucleus:
             -c2 {output.INTRON_T2C} \
             {input.DNA} {input.GTF} \
         2>> {log.log}
-
-        ls -a $(dirname {output.IDX}) >> {log.log}
         """
 
 
-#########################################2
-# Rule copies for primary only 
-##TODO refactor code...
+#########################################
 
+
+# Rule copies for primary only
+##TODO refactor code to collapse rules
 rule kb_primary:
     input:
         DNA="{OUTDIR}/{SPECIES}/raw/genome_primary.fa",
@@ -150,11 +136,8 @@ rule kb_primary:
     shell:
         """
         mkdir -p $(dirname {output.IDX})
-        
-        {params.KALLISTO} version > {log.log}
 
         {params.KB} ref \
-            --kallisto {params.KALLISTO} \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
             -g {output.T2G} \
@@ -190,11 +173,8 @@ rule kb_velocity_primary:
         """
         mkdir -p $(dirname {output.IDX})
         
-        {params.KALLISTO} version > {log.log}
-
         {params.KB} ref \
             --verbose \
-            --kallisto {params.KALLISTO} \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
             -g {output.T2G} \
@@ -205,8 +185,6 @@ rule kb_velocity_primary:
             -c2 {output.INTRON_T2C} \
             {input.DNA} {input.GTF} \
         2>> {log.log}
-
-        ls -a $(dirname {output.IDX}) >> {log.log}
         """
 
 
@@ -234,11 +212,8 @@ rule kb_nucleus_primary:
         """
         mkdir -p $(dirname {output.IDX})
         
-        {params.KALLISTO} version > {log.log}
-
         {params.KB} ref \
             --verbose \
-            --kallisto {params.KALLISTO} \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
             -g {output.T2G} \
@@ -249,6 +224,4 @@ rule kb_nucleus_primary:
             -c2 {output.INTRON_T2C} \
             {input.DNA} {input.GTF} \
         2>> {log.log}
-
-        ls -a $(dirname {output.IDX}) >> {log.log}
         """

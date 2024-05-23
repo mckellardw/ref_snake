@@ -1,4 +1,5 @@
-# Snakemake workflow to build and organize reference genomes for common alignment tools
+# `ref_snake`
+**A Snakemake pipeline for genomic reference management**
 
 
 ## Setup/install

@@ -1,11 +1,11 @@
-# genomes 
+# ref_snake 
 
 ########################################################################################################
 # Run settings - also see config/slurm.yml for slurm resource management
 ########################################################################################################
 CORES: 16     # how many cores to give for each process (snakemake automatically parallelizes process using "snakemake -j {numTotalCores}")
 MEMLIMIT: 120000000000  # limit in bytes
-MEMLIMIT_GB: 64G        # mem limit for kallisto
+MEMLIMIT_GB: 96G        # mem limit for kallisto
 
 GGET_RETRIES: 50    # number of retries for gget download rules
 

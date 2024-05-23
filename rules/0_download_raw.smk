@@ -16,9 +16,11 @@ rule get_ref_metadata:
 
         if S in available_species:
             print(
-                f"Downloading metadata for *{S}* to `{OUTDIR}/{S}/raw/metadata.json`..."
+                f"""
+                Downloading metadata for *{S}* to `{OUTDIR}/{S}/raw/metadata.json`...
+                """
             )
-            # --which: gtf,dna,cdna,cds,cdrna,pep
+
             shell(
                 f"""
                 mkdir -p $(dirname {output.METADATA})
@@ -69,7 +71,9 @@ rule get_ref_files:
         }
 
         if S in available_species:
-            print(f"Downloading genome and annotations for *{S}* to `{OUTDIR}/{S}/raw`...")
+            print(
+            f"Downloading genome and annotations for *{S}* to `{OUTDIR}/{S}/raw`..."
+        )
 
         meta = json.load(open(input.METADATA))[wildcards.SPECIES]
 
@@ -78,5 +82,4 @@ rule get_ref_files:
         else:
             print("TODO")
             # Format stuff for custom refs here...
-
 
