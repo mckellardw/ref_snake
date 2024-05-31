@@ -22,7 +22,7 @@ rule kb:
         """
         mkdir -p $(dirname {output.IDX})
         
-        {params.KB} ref \
+        kb ref \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
             -g {output.T2G} \
@@ -56,7 +56,7 @@ rule kb_velocity:
         """
         mkdir -p $(dirname {output.IDX})
         
-        {params.KB} ref \
+        kb ref \
             --verbose \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
@@ -95,7 +95,7 @@ rule kb_nucleus:
         """
         mkdir -p $(dirname {output.IDX})
         
-        {params.KB} ref \
+        kb ref \
             --verbose \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
@@ -137,7 +137,7 @@ rule kb_primary:
         """
         mkdir -p $(dirname {output.IDX})
 
-        {params.KB} ref \
+        kb ref \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
             -g {output.T2G} \
@@ -173,7 +173,7 @@ rule kb_velocity_primary:
         """
         mkdir -p $(dirname {output.IDX})
         
-        {params.KB} ref \
+        kb ref \
             --verbose \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
@@ -212,7 +212,7 @@ rule kb_nucleus_primary:
         """
         mkdir -p $(dirname {output.IDX})
         
-        {params.KB} ref \
+        kb ref \
             --verbose \
             --tmp $(dirname {output.IDX})/tmp \
             -i {output.IDX} \
