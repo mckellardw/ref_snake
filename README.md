@@ -37,14 +37,6 @@ See `out/README.md` for info on the files output for each species
 ## Useful links/resources:
 - [`gget` documentation](https://github.com/pachterlab/gget)
 
-
-## TODO
-- Tools to add/support:
-  - bowtie/2
-  - salmon
-- Custom references
-- GENCODE annotations! (ideally via gget if they add it...)
-- ref genome stats?
   
 ### Misc.
 - Download GENCODE references w/ `wget`
