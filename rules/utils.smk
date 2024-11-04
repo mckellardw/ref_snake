@@ -13,22 +13,21 @@ def get_genomeSAindexNbases(w):
     except:
         genomeSAindexNbases = 14
 
-    # return genomeSAindexNbases value
     return genomeSAindexNbases
 
 # util rules ---------------------------------------
 
 rule index_fasta:
     input:
-        DNA="{FASTA}.fa",
+        DNA="{FASTA}",
     output:
         DNA_IDX="{FASTA}.fai",
-    run:
-        shell(
-            f"""
-            {EXEC['SAMTOOLS']} faidx {input.DNA}
-            """
-        )
+    wildcard_constraints:
+        FILE="[^.]+(\.(fa|fasta))?"
+    shell:
+        """
+        samtools faidx {input.DNA}
+        """
 
 rule gzip_file:
     input: "{OUTDIR}/{SPECIES}/{FILE}"
@@ -52,7 +51,7 @@ rule gunzip_file:
     output: "{OUTDIR}/{SPECIES}/{FILE}"
     wildcard_constraints:
         # FILE="^(?!.*\.gz$).*"
-        FILE=".*\.(fa|fasta|fq|fastq)$"
+        FILE="[^.]+(\.(fa|fasta|fq|fastq|gtf))?"
     threads: config["CORES"]
     shell:
         """

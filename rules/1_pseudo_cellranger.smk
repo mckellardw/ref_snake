@@ -12,16 +12,13 @@ rule pseudo_cellranger:
     # wildcard_constraints:
     #     SPECIES = SPECIES_REGEX
     threads: 1
-    run:
-        shell(
-            f"""
-            mkdir -p {output.REFDIR}/fasta {output.REFDIR}/genes
+    shell:
+        """
+        mkdir -p {output.REFDIR}/fasta {output.REFDIR}/genes
 
-            zcat {input.DNA} > {output.DNA}
-            zcat {input.GTF} > {output.GTF}
+        zcat {input.DNA} > {output.DNA}
+        zcat {input.GTF} > {output.GTF}
 
-            cp {input.DNA_IDX} {output.DNA_IDX}
-            """
-        )
+        cp {input.DNA_IDX} {output.DNA_IDX}
+        """
 
-        # {EXEC['SAMTOOLS']} faidx {output.DNA}

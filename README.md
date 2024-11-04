@@ -6,7 +6,8 @@
 1) Build mamba/conda environment:
    *Note* - installing `gget` with `conda` has given me issues, I recommend using `pip`
 ```
-mamba create --name ref_snake -f env
+mamba env create --name ref_snake --file envs/ref_snake.yml
+
 mamba activate ref_snake
 pip install gget snakemake
 mamba install -c conda-forge pigz

@@ -8,9 +8,6 @@ rule kb:
         IDX="{OUTDIR}/{SPECIES}/transcriptome/kb/transcriptome.idx",
         T2G="{OUTDIR}/{SPECIES}/transcriptome/kb/t2g.txt",
         cDNA_FA="{OUTDIR}/{SPECIES}/transcriptome/kb/transcriptome.fa",
-    params:
-        KALLISTO=EXEC["KALLISTO"],
-        KB=EXEC["KB"],
     log:
         log="{OUTDIR}/{SPECIES}/transcriptome/kb/kb_ref.log",
     threads: config["CORES"]
@@ -44,9 +41,6 @@ rule kb_velocity:
         INTRON_FA="{OUTDIR}/{SPECIES}/transcriptome/kb_velo/intron.fa",
         cDNA_T2C="{OUTDIR}/{SPECIES}/transcriptome/kb_velo/transcriptome.t2c",
         INTRON_T2C="{OUTDIR}/{SPECIES}/transcriptome/kb_velo/intron.t2c",
-    params:
-        KALLISTO=EXEC["KALLISTO"],
-        KB=EXEC["KB"],
     log:
         log="{OUTDIR}/{SPECIES}/transcriptome/kb_velo/kb_ref.log",
     threads: config["CORES"]
@@ -83,9 +77,6 @@ rule kb_nucleus:
         INTRON_FA="{OUTDIR}/{SPECIES}/transcriptome/kb_nuc/intron.fa",
         cDNA_T2C="{OUTDIR}/{SPECIES}/transcriptome/kb_nuc/transcriptome.t2c",
         INTRON_T2C="{OUTDIR}/{SPECIES}/transcriptome/kb_nuc/intron.t2c",
-    params:
-        KALLISTO=EXEC["KALLISTO"],
-        KB=EXEC["KB"],
     log:
         log="{OUTDIR}/{SPECIES}/transcriptome/kb_nuc/kb_ref.log",
     threads: config["CORES"]
@@ -123,11 +114,9 @@ rule kb_primary:
         IDX="{OUTDIR}/{SPECIES}/transcriptome/kb_primary/transcriptome.idx",
         T2G="{OUTDIR}/{SPECIES}/transcriptome/kb_primary/t2g.txt",
         cDNA_FA="{OUTDIR}/{SPECIES}/transcriptome/kb_primary/transcriptome.fa",
-    params:
-        KALLISTO=EXEC["KALLISTO"],
-        KB=EXEC["KB"],
     log:
         log="{OUTDIR}/{SPECIES}/transcriptome/kb_primary/kb_ref.log",
+        err="{OUTDIR}/{SPECIES}/transcriptome/kb_primary/kb_ref.err",
     threads: config["CORES"]
     # resources:
     #     mem_mb=config["MEMLIMIT"]/1000000
@@ -143,7 +132,8 @@ rule kb_primary:
             -g {output.T2G} \
             -f1 {output.cDNA_FA} \
             {input.DNA} {input.GTF} \
-        2>> {log.log}
+        1>> {log.log} \
+        2> {log.err}
         
         ls -a $(dirname {output.IDX}) >> {log.log}
         """
@@ -161,9 +151,6 @@ rule kb_velocity_primary:
         INTRON_FA="{OUTDIR}/{SPECIES}/transcriptome/kb_velo_primary/intron.fa",
         cDNA_T2C="{OUTDIR}/{SPECIES}/transcriptome/kb_velo_primary/transcriptome.t2c",
         INTRON_T2C="{OUTDIR}/{SPECIES}/transcriptome/kb_velo_primary/intron.t2c",
-    params:
-        KALLISTO=EXEC["KALLISTO"],
-        KB=EXEC["KB"],
     log:
         log="{OUTDIR}/{SPECIES}/transcriptome/kb_velo_primary/kb_ref.log",
     threads: config["CORES"]

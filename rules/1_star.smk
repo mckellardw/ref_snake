@@ -21,7 +21,7 @@ rule star_genome:
 
             mkdir -p $(dirname {output.REF})
 
-            {EXEC['STAR']} \
+            STAR \
                 --runMode genomeGenerate \
                 --outTmpDir $(dirname {output.REF})/_STARtmp \
                 --limitBAMsortRAM {config['MEMLIMIT']} \
@@ -52,7 +52,7 @@ rule star_genome_primary:
             f"""
             mkdir -p $(dirname {output.REF})
 
-            {EXEC['STAR']} \
+            STAR \
                 --runMode genomeGenerate \
                 --outTmpDir $(dirname {output.REF})/_STARtmp \
                 --limitBAMsortRAM {config['MEMLIMIT']} \
@@ -89,7 +89,7 @@ rule star_rRNA:
 
             mkdir -p $(dirname {output.REF})
 
-            {EXEC['STAR']} \
+            STAR \
                 --runMode genomeGenerate \
                 --outTmpDir $(dirname {output.REF})/_STARtmp \
                 --limitBAMsortRAM {config['MEMLIMIT']} \
