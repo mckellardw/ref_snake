@@ -1,4 +1,10 @@
-# Download the reference metadata
+import gget
+import json
+import pandas as pd
+import logging
+from pathlib import Path
+
+# Download the reference metadata 
 rule get_ref_metadata:
     input:
         SPECIES_LIST="resources/gget_species.txt",
@@ -9,31 +15,40 @@ rule get_ref_metadata:
     threads: 1
     retries: config["GGET_RETRIES"]
     run:
-        available_species = pd.read_csv(input.SPECIES_LIST, header=None)[
-            0
-        ].values.tolist()
-        S = wildcards.SPECIES
+        # Setup logging
+        logging.basicConfig(
+            filename=log.log,
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s'
+        )
 
-        if S in available_species:
-            print(
-                f"""
-                Downloading metadata for *{S}* to `{OUTDIR}/{S}/raw/metadata.json`...
-                """
-            )
+        try:
+            # Read available species
+            available_species = pd.read_csv(input.SPECIES_LIST, header=None)[0].values.tolist()
+            S = wildcards.SPECIES
 
-            shell(
-                f"""
-                mkdir -p $(dirname {output.METADATA})
+            if S in available_species:
+                logging.info(f"Downloading metadata for {S}")
+                
+                # Create output directory
+                Path(output.METADATA).parent.mkdir(parents=True, exist_ok=True)
+                
+                # Use gget Python API to get reference data
+                ref_data = gget.ref(S, which="all")
+                
+                # Save to JSON file
+                with open(output.METADATA, 'w') as f:
+                    json.dump(ref_data, f, indent=2)
+                
+                logging.info(f"Successfully saved metadata to {output.METADATA}")
+            else:
+                msg = f"Species ({S}) not available from `gget`!"
+                logging.error(msg)
+                raise ValueError(msg)
 
-                {EXEC['GGET']} ref \
-                    --which all \
-                    --out  {output.METADATA} \
-                    {S} \
-                    2> {log.log}
-                """
-            )
-        else:
-            print(f"Species ({S}) not available from `gget`!")
+        except Exception as e:
+            logging.error(f"Error processing {S}: {str(e)}")
+            raise e
             # TODO- add code to look for custom ref sequences here
             # OR - build json with similar structure to gget output, to simplify workflow
 
@@ -56,8 +71,6 @@ rule get_ref_files:
     run:
         import json
 
-        S = wildcards.SPECIES
-
         available_species = pd.read_csv(input.SPECIES_LIST, header=None)[
             0
         ].values.tolist()
@@ -72,7 +85,7 @@ rule get_ref_files:
 
         if S in available_species:
             print(
-            f"Downloading genome and annotations for *{S}* to `{OUTDIR}/{S}/raw`..."
+            f"Downloading genome and annotations for *{wildcards.SPECIES}* to `{OUTDIR}/{wildcards.SPECIES}/raw`..."
         )
 
         meta = json.load(open(input.METADATA))[wildcards.SPECIES]

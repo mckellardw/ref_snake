@@ -8,15 +8,15 @@ rule minimap2:
     threads: config["CORES"]
     log:
         log="{OUTDIR}/{SPECIES}/{BIOTYPE}/minimap2/mm2.log",
+    conda:
+        f"{workflow.basedir}/envs/minimap2.yml"
     run:
-        shell(
-            f"""
-            {EXEC["MINIMAP2"]} \
-                -d {output.REF} \
-                {input.DNA} \
-            2> {log.log}
-            """
-        )
+        """
+        minimap2 \
+            -d {output.REF} \
+            {input.DNA} \
+        2> {log.log}
+        """
 
 
 # rule minimap2_transcriptome:
@@ -31,7 +31,7 @@ rule minimap2:
 #     run:
 #         shell(
 #             f"""
-#             {EXEC["MINIMAP2"]} \
+#             minimap2 \
 #                 -d {output.REF} \
 #                 {input.DNA} \
 #             2> {log.log}
