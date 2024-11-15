@@ -1,0 +1,4 @@
+"ref_id","genome_fa","annotations_gtf","transcriptome_fa",
+"reovirus_T1L","/gpfs/commons/groups/innovation/dwm/genomes/custom/reovirus_T1L/genome.fa","/gpfs/commons/groups/innovation/dwm/genomes/custom/reovirus_T1L/annotation.gtf","/gpfs/commons/groups/innovation/dwm/genomes/custom/reovirus_T1L/genome.fa"
+"mus_musculus-reovirus_T1L","mus_musculus /gpfs/commons/groups/innovation/dwm/genomes/custom/reovirus_T1L/genome.fa","mus_musculus /gpfs/commons/groups/innovation/dwm/genomes/custom/reovirus_T1L/annotation.gtf","mus_musculus /gpfs/commons/groups/innovation/dwm/genomes/custom/reovirus_T1L/genome.fa"
+"DCS","ref_snake/resources/common_ctrls/ont_dcs.fa","ref_snake/resources/common_ctrls/ont_dcs.gtf",""
