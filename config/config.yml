@@ -37,7 +37,7 @@ EXEC:
 # Dict of species to be included. See `resources/gget_species.txt` for options
 SPECIES:
   mus_musculus
-  # homo_sapiens
+  homo_sapiens
 
 #TODO
 CUSTOM: "sample_sheets/sample_sheet.csv"
